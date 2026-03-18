@@ -1,4 +1,3 @@
-package Assignment;
 public class PlayerWizard extends MainPlayer{
     private static final int BASE_HEALTH = 200;
     private static final int BASE_ATTACK = 50;

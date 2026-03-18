@@ -1,4 +1,3 @@
-package Assignment;
 public class PlayerWarrior extends MainPlayer{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
