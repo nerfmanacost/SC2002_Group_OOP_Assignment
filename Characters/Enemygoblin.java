@@ -1,4 +1,3 @@
-package Assignment;
 public class Enemygoblin extends MainEnemy{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
