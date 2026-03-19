@@ -21,7 +21,7 @@ public class GameApp {
 
     System.out.println("Enter your name, stranger...");
     String userName = scanner.nextLine();
+    //pass it to player object
   }
-
 
 }
