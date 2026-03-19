@@ -5,17 +5,18 @@ public class EnemyWolf extends MainEnemy{
     private static final int BASE_SPEED = 35;
     private static final String NAME = "Wolf";
 
-    public EnemyWolf(int health, int attack, int defense, int speed){
+    public EnemyWolf(){
         super(BASE_HEALTH, BASE_ATTACK, BASE_DEFENSE, BASE_SPEED);
         this.entitytype = TypeofEntity.ENE_WOLF;
     }
     
+    @Override
     public void showStats(){
         System.out.println(NAME);
-        System.out.println("HP: "+BASE_HEALTH);
-        System.out.println("ATK: "+BASE_ATTACK);
-        System.out.println("DEF: "+BASE_DEFENSE);
-        System.out.println("SPD: "+BASE_SPEED);
+        System.out.println("HP: "+this.health);
+        System.out.println("ATK: "+this.attack);
+        System.out.println("DEF: "+this.defense);
+        System.out.println("SPD: "+this.speed);
     }
 
     public int basicattack(MainEntity defender){

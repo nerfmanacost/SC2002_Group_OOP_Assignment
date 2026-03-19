@@ -21,6 +21,7 @@ public abstract class MainEntity {
         this.entitytype = TypeofEntity.PLAY_ENTI;
     }
     
+    public int getHealth(){return health;}
     public int getAttack(){return attack;}
     public int getDefense(){return defense;}
     public int getSpeed(){return speed;}
