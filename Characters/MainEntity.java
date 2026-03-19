@@ -4,7 +4,7 @@ public abstract class MainEntity {
     protected String name;
     protected TypeofEntity entitytype;
 
-    public MainEntity(String name, int health, int defense, int attack, int speed){
+    public MainEntity(String name, int health, int attack, int defense, int speed){
         this.attack = attack;
         this.defense = defense;
         this.health = health;
@@ -13,7 +13,7 @@ public abstract class MainEntity {
         this.entitytype =  TypeofEntity.PLAY_ENTI;
     }
 
-    public MainEntity(int health, int defense, int attack, int speed){
+    public MainEntity(int health, int attack, int defense, int speed){
         this.attack = attack;
         this.defense = defense;
         this.health = health;
@@ -28,5 +28,6 @@ public abstract class MainEntity {
 
     public abstract void showStats();
     public abstract int basicattack(MainEntity defender);
+    public abstract int takeDamage(int damage);
 
 }

@@ -1,10 +1,9 @@
 public abstract class MainPlayer extends MainEntity {
-    public MainPlayer(String name, int health, int defense, int attack, int speed){
-        super(name, health, defense, attack, speed);
+    public MainPlayer(String name, int health, int attack, int defense, int speed){
+        super(name, health, attack, defense, speed);
     }
     
     public void setName(String name){this.name = name;}
-
     public String getName(){return this.name;}
 
     public abstract int defend();

@@ -46,9 +46,18 @@ public class PlayerWarrior extends MainPlayer{
         defendTurnRemaining = 2;
     }
 
-    public int ActionValue(){
-        return 1000/BASE_SPEED;
+    public int takeDamage(int damage){
+        if (this.health <= 0){ 
+            System.out.println("You are already dead.");
+            return 0;
+        }  
+        this.health = Math.max(0, this.health - damage);
+        if (this.health == 0){
+            System.out.println("You are dead");
+        }
+        return damage;
     }
+    
 
     @Override
     public void showStats(){

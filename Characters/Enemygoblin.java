@@ -22,4 +22,16 @@ public class Enemygoblin extends MainEnemy{
     public int basicattack(MainEntity defender){
         return Math.max(0, this.attack - defender.getDefense());
     }
+
+    public int takeDamage(int damage){
+        if (this.health <= 0){ 
+            System.out.println("Goblin is already dead.");
+            return 0;
+        }  
+        this.health = Math.max(0, this.health - damage);
+        if (this.health == 0){
+            System.out.println("Goblin has been slain");
+        }
+        return damage;
+    }
 }
