@@ -18,7 +18,7 @@ public class PlayerWizard extends MainPlayer{
     public int defend(){return 0;}
 
     public void showStats(){
-        System.out.println("Warrior: ");
+        System.out.println("Wizard: ");
         System.out.println("HP: "+BASE_HEALTH);
         System.out.println("ATK: "+BASE_ATTACK);
         System.out.println("DEF: "+BASE_DEFENSE);

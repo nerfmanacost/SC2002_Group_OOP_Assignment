@@ -12,13 +12,20 @@ public abstract class MainEntity {
         this.name = name;
         this.entitytype =  TypeofEntity.PLAY_ENTI;
     }
+
+    public MainEntity(int health, int defense, int attack, int speed){
+        this.attack = attack;
+        this.defense = defense;
+        this.health = health;
+        this.speed = speed;
+        this.entitytype = TypeofEntity.PLAY_ENTI;
+    }
     
     public int getAttack(){return attack;}
     public int getDefense(){return defense;}
     public int getSpeed(){return speed;}
 
+    public abstract void showStats();
     public abstract int basicattack(MainEntity defender);
 
-
-    
 }
