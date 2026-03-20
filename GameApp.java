@@ -72,7 +72,7 @@ public class GameApp {
 
     //option to pick items, so we need to show the list of items available.
 
-    System.out.println("Select items to aid your adventure, " + userName);
+    System.out.println("Select 2 items to aid your adventure, " + userName);
     //BASED ON PROJECT SPECS, we HAVE to let user pick 2 items, not one or other number, but 2.
     //we also have to print the number for each item.
     //there are a total of 3 items in stated in the proj specs.
@@ -89,21 +89,20 @@ public class GameApp {
     //System.out.println("Type in the item number and press enter for each item, you can select 2 items before your run");
 
     //prints out the menu for easier item viewing. 
-    System.out.println("Select an item:");
-    for (int i = 0; i < allItems.length; i++){
-      System.out.println((i + 1) + ". " + allItems[i].getName());
-    }
     while (count < 2){
+      for (int i = 0; i < allItems.length; i++){
+        System.out.println((i + 1) + ". " + allItems[i].getName());
+      }
       System.out.println("Pick Item " + (count + 1) + ":");
       int userSelect = scanner.nextInt(); 
 
-      if (userSelect < 0 || userSelect > allItems.length){
+      if (userSelect < 1 || userSelect > allItems.length){
         System.out.println("Invalid input, enter a number from 1 to 3.");
       }else{
         //duplicate items ARE allowed.
         selectedItems[count] = allItems[userSelect - 1];
         //Need to implement printing of item name
-        System.out.println("You selected - " + allItems[userSelect].getName());
+        System.out.println("You selected - " + allItems[userSelect - 1].getName());
         count++;
       }
     }
