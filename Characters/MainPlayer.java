@@ -7,6 +7,7 @@ public abstract class MainPlayer extends MainEntity {
     public String getName(){return this.name;}
 
     public abstract int defendSkill();
-    public abstract void activateDefend();
     public abstract void gameReset();
+    public abstract void getInventory();
+     
 }   

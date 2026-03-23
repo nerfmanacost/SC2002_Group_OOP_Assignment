@@ -20,10 +20,12 @@ public class EnemyGoblin extends MainEnemy{
             System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
-        return Math.max(0, this.attack - defender.getDefense());
+        return Math.max(0, this.attack - defender.effectiveDefense());
     }
 
     public void onTurnEnd(){stunTick();}
+
+    public int effectiveDefense(){return this.defense;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
