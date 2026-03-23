@@ -18,8 +18,6 @@ public class GameSession {
 
   }
 
-
-
   //we will start from turn 0, then when its our turn we increment, so we alr increment by 1 from the start.
   private int currentTurn = 0;
   //if game over, we print game over screen. 

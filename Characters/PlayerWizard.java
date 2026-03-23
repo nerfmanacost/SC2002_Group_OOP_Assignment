@@ -52,7 +52,7 @@ public class PlayerWizard extends MainPlayer{
     }
 
     //all wizard attack buffs are only active for one round
-    public void skillbuff(){attackBuff = 10 * killcount;}
+    public int skillbuff(){return attackBuff + 10 * killcount;}
     public int effectiveAttack(){return this.attack + attackBuff;}
     private void resetAttackBuff(){attackBuff = 0;}
     
@@ -96,8 +96,6 @@ public class PlayerWizard extends MainPlayer{
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
-        resetAttackBuff();
-        resetKillCount();
     }
 
     private List<Inventory> inventory = new ArrayList<>();
