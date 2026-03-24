@@ -1,3 +1,7 @@
+import Items.Inventory;
+import java.util.List;
+import java.util.ArrayList;
+
 public class PlayerWarrior extends MainPlayer{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
@@ -6,7 +10,6 @@ public class PlayerWarrior extends MainPlayer{
     private static final int BASE_SPEED = 30;
     private int defendTurnRemaining = 0;
     private int skillcooldown = 0;
-    private int stunDur = 0;
 
 
     public PlayerWarrior(String name){
@@ -14,50 +17,43 @@ public class PlayerWarrior extends MainPlayer{
         this.entitytype = TypeofEntity.PLAY_WAR;
     }
 
-    public int basicattack(MainEntity defender){return Math.max(0, this.attack - defender.getDefense());}
+    public int basicAttack(MainEntity defender){return Math.max(0, this.attack - defender.effectiveDefense());}
     
-    public int specialskill(MainEntity enemy){
+    private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
+    private void activateDefend(){defendTurnRemaining = 2;}
+
+    public int defendSkill(){activateDefend(); return effectiveDefense();}
+
+    //if defendturnremaining > 0 return this.def + 10
+    public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
+
+    public int specialskill(MainEnemy enemy){
         if (skillcooldown > 0){
             System.out.println("Skill on cooldown");
             return 0;
         }
         activateSkill();
-        activateStun();
-        return basicattack(enemy);
+        return basicAttack(enemy);
     }
 
     public int getskillcooldown(){return skillcooldown;}
-    public int getStunWindow(){return stunDur;}
-
-    public void activateSkill(){skillcooldown = 3;}
-    public void activateStun(){stunDur = 2;}
-    public void tickCooldown(){if (skillcooldown > 0) skillcooldown--;}
-
-    public int defend(){
-        //hard code turn count so it becomes easier
-        if (defendTurnRemaining > 0){
-            defendTurnRemaining --;
-            return this.defense + 10;
-        }
-        return this.defense;
-    }
-
-    public void activateDefend(){
-        defendTurnRemaining = 2;
-    }
+    private void tickCooldown(){if (skillcooldown > 0) skillcooldown--;}
+    private void activateSkill(){skillcooldown = 3;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
-            System.out.println("You are already dead.");
+            System.out.println(name+" is already dead.");
             return 0;
-        }  
+        }
+        //damage taken is strictly basic attack damage only
         this.health = Math.max(0, this.health - damage);
         if (this.health == 0){
-            System.out.println("You are dead");
+            System.out.println("You have been slain");
         }
         return damage;
     }
-    
+
+    public void onTurnEnd(){defendTick(); tickCooldown();}
 
     @Override
     public void showStats(){
@@ -66,5 +62,21 @@ public class PlayerWarrior extends MainPlayer{
         System.out.println("ATK: "+this.attack);
         System.out.println("DEF: "+this.defense);
         System.out.println("SPD: "+this.speed);
+    }
+
+    //for resetting of all base stats at the end of the game
+    public void gameReset(){
+        this.health = BASE_HEALTH;
+        this.attack = BASE_ATTACK;
+        this.defense = BASE_DEFENSE;
+        this.speed = BASE_SPEED;
+    }
+
+    private List<Inventory> inventory = new ArrayList<>();
+    public void getInventory(){accessInventory(inventory);}
+    protected void accessInventory(List <Inventory> inventory){
+        for (Inventory item: inventory){
+            System.out.println(item);
+        }
     }
 }
