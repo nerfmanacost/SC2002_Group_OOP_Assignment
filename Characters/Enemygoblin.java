@@ -1,3 +1,5 @@
+package Characters;
+
 public class EnemyGoblin extends MainEnemy{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
