@@ -49,25 +49,32 @@ public class GameApp {
       System.out.println("Warrior: 'Big Sword go Swoosh' has powerful attacks, higher health but lacks AOE | Press 1 and Enter.");
 
       System.out.println("Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has AOE and cool spells | Press 2 and Enter.");
-      int userInput = scanner.nextInt();
-      
-      if (userInput != 1 && userInput != 2){
-        System.out.println("Invalid choice, Enter 1 or 2");
-      }else if (userInput == 1){
-        System.out.println("Selected Warrior!");
-        player = new PlayerWarrior(userName); 
-        System.out.println("Your stats/attributes are:");
-        //print out attributes
-        player.showStats();
-        break;
-      }else if (userInput == 2){
-        System.out.println("Selected Wizard!");
-        player = new PlayerWizard(userName);
-        System.out.println("Your stats/attributes are:");
-        //print out attributes.
-        player.showStats();
-        break;
+     
+      if (scanner.hasNextInt()){
+        int userInput = scanner.nextInt();
+        scanner.nextLine();
+        if (userInput != 1 && userInput != 2){
+              System.out.println("Invalid choice, Enter 1 or 2");
+            }else if (userInput == 1){
+              System.out.println("Selected Warrior!");
+              player = new PlayerWarrior(userName); 
+              System.out.println("Your stats/attributes are:");
+              //print out attributes
+              player.showStats();
+              break;
+            }else if (userInput == 2){
+              System.out.println("Selected Wizard!");
+              player = new PlayerWizard(userName);
+              System.out.println("Your stats/attributes are:");
+              //print out attributes.
+              player.showStats();
+              break;
+            }
+      }else {
+        System.out.println("Invalid input, please enter a number!");
+        scanner.nextLine();
       }
+    
     }
 
     //option to pick items, so we need to show the list of items available.
@@ -94,16 +101,22 @@ public class GameApp {
         System.out.println((i + 1) + ". " + allItems[i].getName());
       }
       System.out.println("Pick Item " + (count + 1) + ":");
-      int userSelect = scanner.nextInt(); 
 
-      if (userSelect < 1 || userSelect > allItems.length){
-        System.out.println("Invalid input, enter a number from 1 to 3.");
-      }else{
-        //duplicate items ARE allowed.
-        selectedItems[count] = allItems[userSelect - 1];
-        //Need to implement printing of item name
-        System.out.println("You selected - " + allItems[userSelect - 1].getName());
-        count++;
+      if (scanner.hasNextInt()){
+        int userSelect = scanner.nextInt();
+        scanner.nextLine();
+        if (userSelect < 1 || userSelect > allItems.length){
+          System.out.println("Invalid number, enter a number from 1 to 3.");
+        }else{
+          //duplicate items ARE allowed.
+          selectedItems[count] = allItems[userSelect - 1];
+          //Need to implement printing of item name
+          System.out.println("You selected - " + allItems[userSelect - 1].getName());
+          count++;
+        }
+      }else {
+        System.out.println("Invalid input, please enter a number!");
+        scanner.nextLine(); //clears the bad input from buffer.
       }
     }
 
