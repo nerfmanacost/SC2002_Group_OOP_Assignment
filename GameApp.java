@@ -2,7 +2,13 @@ import java.io.*;
 import java.util.Scanner;
 import Items.Item;
 import Items.SmokeBomb;
+import Characters.EnemyGoblin;
+import Characters.EnemyWolf;
+import Characters.MainEnemy;
+import Characters.MainPlayer;
 import Difficulty.Difficulty;
+import Characters.PlayerWizard;
+import Characters.PlayerWarrior;
 
 //This is the main file that will run the game itself.
 public class GameApp {
@@ -124,22 +130,22 @@ public class GameApp {
 
     //user now selects Difficulty, Easy Medium or Hard, enemy needs to show their attributes too.
     
-    // // --- setup difficulties ---
-    //   Difficulty easy = new Difficulty(
-    //       "Easy",
-    //       new Enemy[]{ new Goblin() },   // 3 goblins
-    //       null
-    //   );
-    //   Difficulty medium = new Difficulty(
-    //       "Medium",
-    //       new Enemy[]{ new Goblin(), new Wolf() },
-    //       new Enemy[]{ new Wolf() }
-    //   );
-    //   Difficulty hard = new Difficulty(
-    //       "Hard",
-    //       new Enemy[]{ new Goblin() },
-    //       new Enemy[]{ new Goblin(), new Wolf() }
-    //   );     
+    // --- setup difficulties ---
+      Difficulty easy = new Difficulty(
+          "Easy",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin(), new EnemyGoblin() },   // 3 goblins
+          null
+      );
+      Difficulty medium = new Difficulty(
+          "Medium",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf() },
+          new MainEnemy[]{ new EnemyWolf(), new EnemyWolf() }
+      );
+      Difficulty hard = new Difficulty(
+          "Hard",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin() },
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf(), new EnemyWolf() }
+      );     
 
     //user input
     char userSelectDifficulty; 
@@ -149,15 +155,14 @@ public class GameApp {
     while (true){
       System.out.println("Choose your difficulty");
 
-      System.out.println("E. Easy:");
-      //print out enemies attributes and waves info
+      System.out.println("===== E. Easy =====");
+      easy.printWaveInfo();
       
-      System.out.println("M. Medium:");
-      //print out enemies attributes and waves info
+      System.out.println("===== M. Medium =====");
+      medium.printWaveInfo();
 
-      System.out.println("H. Hard:");
-      //print out enemies attributes and waves info
-
+      System.out.println("===== H. Hard =====");
+      hard.printWaveInfo();
 
       System.out.println("Enter your choice: (E, M, H):");
       char userChoice = scanner.next().toUpperCase().charAt(0);
@@ -166,11 +171,11 @@ public class GameApp {
         System.out.println("Please enter a valid choice: E, M or H and press enter.");
       }else {
         userSelectDifficulty = userChoice;
-        //// match char to difficulty object
-        // if (userChoice == 'E')      selectedDifficulty = easy;
-        // else if (userChoice == 'M') selectedDifficulty = medium;
-        // else                        selectedDifficulty = hard;
-        //System.out.println("You selected: " + selectedDifficulty.getName() + "difficulty.");
+        // match char to difficulty object
+        if (userChoice == 'E')      selectedDifficulty = easy;
+        else if (userChoice == 'M') selectedDifficulty = medium;
+        else                        selectedDifficulty = hard;
+        System.out.println("You selected: " + selectedDifficulty.getName() + " difficulty.");
         break;
       }
     }
