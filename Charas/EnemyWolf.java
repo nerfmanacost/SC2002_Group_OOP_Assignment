@@ -1,6 +1,6 @@
 package Charas;
 
-public class EnemyWolf extends MainEnemy{
+public class EnemyWolf extends MainEnemy implements EntityAction{
     private static final int BASE_HEALTH = 40;
     private static final int BASE_ATTACK = 45;
     private static final int BASE_DEFENSE = 5;
@@ -30,6 +30,8 @@ public class EnemyWolf extends MainEnemy{
     public void onTurnEnd(){stunTick();}
 
     public int effectiveDefense(){return this.defense;}
+    public int effectiveAttack(){return this.attack;}
+    public void onLevelEnd(){return;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -44,7 +46,7 @@ public class EnemyWolf extends MainEnemy{
         return damage;
     }
 
-    public void resetStats(){
+    public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;

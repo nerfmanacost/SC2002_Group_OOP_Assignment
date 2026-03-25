@@ -3,7 +3,7 @@ package Charas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerWizard extends MainPlayer{
+public class PlayerWizard extends MainPlayer implements EntityAction{
     private static final int BASE_HEALTH = 200;
     private static final int BASE_ATTACK = 50;
     private static final int BASE_DEFENSE = 10;

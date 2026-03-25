@@ -1,6 +1,6 @@
 package Charas;
 
-public class EnemyGoblin extends MainEnemy{
+public class EnemyGoblin extends MainEnemy implements EntityAction{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
     private static final int BASE_DEFENSE = 15;
@@ -43,7 +43,7 @@ public class EnemyGoblin extends MainEnemy{
     }
 
     //resetting for level (in case)
-    public void resetStats(){
+    public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
