@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Items.Inventory;
-
 public class PlayerWizard extends MainPlayer{
     private static final int BASE_HEALTH = 200;
     private static final int BASE_ATTACK = 50;
