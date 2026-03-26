@@ -1,6 +1,5 @@
 package Characters;
-import java.util.List;
-import java.util.ArrayList;
+
 
 public class PlayerWarrior extends MainPlayer implements EntityAction, TickCooldown{
     //use of static vars because we want the changes to reflect as the game continues
@@ -74,9 +73,9 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
         this.speed = BASE_SPEED;
     }
 
-    private List<Inventory> inventory = new ArrayList<>();
+    private Inventory[] inventory;
     public void getInventory(){accessInventory(inventory);}
-    protected void accessInventory(List <Inventory> inventory){
+    private void accessInventory(Inventory[] inventory){
         for (Inventory item: inventory){
             System.out.println(item);
         }
