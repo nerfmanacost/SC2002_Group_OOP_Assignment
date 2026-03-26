@@ -1,4 +1,4 @@
-package Charas;
+package Characters;
 
 public abstract class MainPlayer extends MainEntity {
     public MainPlayer(String name, int health, int attack, int defense, int speed){

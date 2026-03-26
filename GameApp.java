@@ -2,8 +2,13 @@ import java.io.*;
 import java.util.Scanner;
 import Items.Item;
 import Items.SmokeBomb;
+import Characters.EnemyGoblin;
+import Characters.EnemyWolf;
+import Characters.MainEnemy;
+import Characters.MainPlayer;
 import Difficulty.Difficulty;
-
+import Characters.PlayerWizard;
+import Characters.PlayerWarrior;
 
 //This is the main file that will run the game itself.
 public class GameApp {
@@ -50,25 +55,32 @@ public class GameApp {
       System.out.println("Warrior: 'Big Sword go Swoosh' has powerful attacks, higher health but lacks AOE | Press 1 and Enter.");
 
       System.out.println("Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has AOE and cool spells | Press 2 and Enter.");
-      int userInput = scanner.nextInt();
-      
-      if (userInput != 1 && userInput != 2){
-        System.out.println("Invalid choice, Enter 1 or 2");
-      }else if (userInput == 1){
-        System.out.println("Selected Warrior!");
-        player = new PlayerWarrior(userName); 
-        System.out.println("Your stats/attributes are:");
-        //print out attributes
-        player.showStats();
-        break;
-      }else if (userInput == 2){
-        System.out.println("Selected Wizard!");
-        player = new PlayerWizard(userName);
-        System.out.println("Your stats/attributes are:");
-        //print out attributes.
-        player.showStats();
-        break;
+     
+      if (scanner.hasNextInt()){
+        int userInput = scanner.nextInt();
+        scanner.nextLine();
+        if (userInput != 1 && userInput != 2){
+              System.out.println("Invalid choice, Enter 1 or 2");
+            }else if (userInput == 1){
+              System.out.println("Selected Warrior!");
+              player = new PlayerWarrior(userName); 
+              System.out.println("Your stats/attributes are:");
+              //print out attributes
+              player.showStats();
+              break;
+            }else if (userInput == 2){
+              System.out.println("Selected Wizard!");
+              player = new PlayerWizard(userName);
+              System.out.println("Your stats/attributes are:");
+              //print out attributes.
+              player.showStats();
+              break;
+            }
+      }else {
+        System.out.println("Invalid input, please enter a number!");
+        scanner.nextLine();
       }
+    
     }
 
     //option to pick items, so we need to show the list of items available.
@@ -95,16 +107,22 @@ public class GameApp {
         System.out.println((i + 1) + ". " + allItems[i].getName());
       }
       System.out.println("Pick Item " + (count + 1) + ":");
-      int userSelect = scanner.nextInt(); 
 
-      if (userSelect < 1 || userSelect > allItems.length){
-        System.out.println("Invalid input, enter a number from 1 to 3.");
-      }else{
-        //duplicate items ARE allowed.
-        selectedItems[count] = allItems[userSelect - 1];
-        //Need to implement printing of item name
-        System.out.println("You selected - " + allItems[userSelect - 1].getName());
-        count++;
+      if (scanner.hasNextInt()){
+        int userSelect = scanner.nextInt();
+        scanner.nextLine();
+        if (userSelect < 1 || userSelect > allItems.length){
+          System.out.println("Invalid number, enter a number from 1 to 3.");
+        }else{
+          //duplicate items ARE allowed.
+          selectedItems[count] = allItems[userSelect - 1];
+          //Need to implement printing of item name
+          System.out.println("You selected - " + allItems[userSelect - 1].getName());
+          count++;
+        }
+      }else {
+        System.out.println("Invalid input, please enter a number!");
+        scanner.nextLine(); //clears the bad input from buffer.
       }
     }
 
@@ -112,22 +130,22 @@ public class GameApp {
 
     //user now selects Difficulty, Easy Medium or Hard, enemy needs to show their attributes too.
     
-    // // --- setup difficulties ---
-    //   Difficulty easy = new Difficulty(
-    //       "Easy",
-    //       new Enemy[]{ new Goblin() },   // 3 goblins
-    //       null
-    //   );
-    //   Difficulty medium = new Difficulty(
-    //       "Medium",
-    //       new Enemy[]{ new Goblin(), new Wolf() },
-    //       new Enemy[]{ new Wolf() }
-    //   );
-    //   Difficulty hard = new Difficulty(
-    //       "Hard",
-    //       new Enemy[]{ new Goblin() },
-    //       new Enemy[]{ new Goblin(), new Wolf() }
-    //   );     
+    // --- setup difficulties ---
+      Difficulty easy = new Difficulty(
+          "Easy",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin(), new EnemyGoblin() },   // 3 goblins
+          null
+      );
+      Difficulty medium = new Difficulty(
+          "Medium",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf() },
+          new MainEnemy[]{ new EnemyWolf(), new EnemyWolf() }
+      );
+      Difficulty hard = new Difficulty(
+          "Hard",
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin() },
+          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf(), new EnemyWolf() }
+      );     
 
     //user input
     char userSelectDifficulty; 
@@ -137,15 +155,14 @@ public class GameApp {
     while (true){
       System.out.println("Choose your difficulty");
 
-      System.out.println("E. Easy:");
-      //print out enemies attributes and waves info
+      System.out.println("===== E. Easy =====");
+      easy.printWaveInfo();
       
-      System.out.println("M. Medium:");
-      //print out enemies attributes and waves info
+      System.out.println("===== M. Medium =====");
+      medium.printWaveInfo();
 
-      System.out.println("H. Hard:");
-      //print out enemies attributes and waves info
-
+      System.out.println("===== H. Hard =====");
+      hard.printWaveInfo();
 
       System.out.println("Enter your choice: (E, M, H):");
       char userChoice = scanner.next().toUpperCase().charAt(0);
@@ -154,11 +171,11 @@ public class GameApp {
         System.out.println("Please enter a valid choice: E, M or H and press enter.");
       }else {
         userSelectDifficulty = userChoice;
-        //// match char to difficulty object
-        // if (userChoice == 'E')      selectedDifficulty = easy;
-        // else if (userChoice == 'M') selectedDifficulty = medium;
-        // else                        selectedDifficulty = hard;
-        //System.out.println("You selected: " + selectedDifficulty.getName() + "difficulty.");
+        // match char to difficulty object
+        if (userChoice == 'E')      selectedDifficulty = easy;
+        else if (userChoice == 'M') selectedDifficulty = medium;
+        else                        selectedDifficulty = hard;
+        System.out.println("You selected: " + selectedDifficulty.getName() + " difficulty.");
         break;
       }
     }

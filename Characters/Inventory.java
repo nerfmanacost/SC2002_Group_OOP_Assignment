@@ -1,4 +1,4 @@
-package Charas;
+package Characters;
 
 public class Inventory {
     

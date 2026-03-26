@@ -1,18 +1,22 @@
-package Charas;
+package Characters;
 
-public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
-    private static final int BASE_HEALTH = 40;
-    private static final int BASE_ATTACK = 45;
-    private static final int BASE_DEFENSE = 5;
-    private static final int BASE_SPEED = 35;
-    private static final String NAME = "Wolf";
+public class EnemyGoblin extends MainEnemy implements EntityAction, TickCooldown{
+    private static final int BASE_HEALTH = 55;
+    private static final int BASE_ATTACK = 35;
+    private static final int BASE_DEFENSE = 15;
+    private static final int BASE_SPEED = 25;
+    private static final String NAME = "Goblin";
     private int stunTurn = 0;
 
-    public EnemyWolf(){
+    public EnemyGoblin(){
         super(BASE_HEALTH, BASE_ATTACK, BASE_DEFENSE, BASE_SPEED);
-        this.entitytype = TypeofEntity.ENE_WOLF;
+        this.entitytype = TypeofEntity.ENE_GOB;
     }
-    
+
+    public int setStun(int duration){stunTurn = duration; return stunTurn;}
+    public boolean stunStatus(){return stunTurn>0;}
+    private void stunTick(){if (stunTurn>0) stunTurn--;}
+
     public int basicAttack(MainEntity defender){
         if (stunStatus()){
             System.out.println(NAME + " is stunned, unable to take action.");
@@ -21,14 +25,11 @@ public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
         return Math.max(0, effectiveAttack() - defender.effectiveDefense());
     }
 
-    //warrior skill cooldown will be longer than the stunwindow for mobs
-    //pass player.getStunWindow() through setstun
-    public int setStun(int duration){stunTurn = duration; return stunTurn;}
-    public boolean stunStatus(){return stunTurn>0;}
-    private void stunTick(){if (stunTurn>0) stunTurn--;}
+    public void tickAll(){stunTick();}
 
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
+    
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -43,15 +44,14 @@ public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
         return damage;
     }
 
-    public void tickAll(){stunTick();}
-
+    //resetting for level (in case)
     public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
     }
-
+    
     @Override
     public void showStats(){
         System.out.println(NAME);

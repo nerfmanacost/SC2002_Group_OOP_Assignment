@@ -1,4 +1,4 @@
-package Charas;
+package Characters;
 
 public abstract class MainEnemy extends MainEntity{
     public MainEnemy(int health, int attack, int defense, int speed){

@@ -1,4 +1,4 @@
-package Charas;
+package Characters;
 
 public interface EntityAction {
     int basicAttack(MainEntity defender);
