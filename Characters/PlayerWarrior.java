@@ -1,9 +1,8 @@
 package Characters;
-
 import java.util.List;
 import java.util.ArrayList;
 
-public class PlayerWarrior extends MainPlayer{
+public class PlayerWarrior extends MainPlayer implements EntityAction, TickCooldown{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
     private static final int BASE_ATTACK = 40;
@@ -18,7 +17,7 @@ public class PlayerWarrior extends MainPlayer{
         this.entitytype = TypeofEntity.PLAY_WAR;
     }
 
-    public int basicAttack(MainEntity defender){return Math.max(0, this.attack - defender.effectiveDefense());}
+    public int basicAttack(MainEntity defender){return Math.max(0, effectiveAttack() - defender.effectiveDefense());}
     
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
@@ -27,6 +26,7 @@ public class PlayerWarrior extends MainPlayer{
 
     //if defendturnremaining > 0 return this.def + 10
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
+    public int effectiveAttack(){return this.attack;}
 
     public int specialskill(MainEnemy enemy){
         if (skillcooldown > 0){
@@ -54,7 +54,8 @@ public class PlayerWarrior extends MainPlayer{
         return damage;
     }
 
-    public void onTurnEnd(){defendTick(); tickCooldown();}
+    @Override
+    public void tickAll(){defendTick(); tickCooldown();}
 
     @Override
     public void showStats(){
