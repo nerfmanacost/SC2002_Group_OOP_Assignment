@@ -1,9 +1,8 @@
 package Characters;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldown{
+public class PlayerWizard extends MainPlayer{
     private static final int BASE_HEALTH = 200;
     private static final int BASE_ATTACK = 50;
     private static final int BASE_DEFENSE = 10;
@@ -24,8 +23,8 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
         return damage;
     }
 
-    private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
-    private void activateDefend(){defendTurnRemaining = 2;}
+    private void defendTick(){if (this.defendTurnRemaining>0) this.defendTurnRemaining--;}
+    private void activateDefend(){this.defendTurnRemaining = 2;}
     public int defendSkill(){
         //hard code turn count so it becomes easier
         activateDefend();
@@ -56,7 +55,6 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
     public int effectiveAttack(){return this.attack + attackBuff;}
     private void resetAttackBuff(){attackBuff = 0;}
     
-    //call reset after each use of skill, want to check eveyrtime whether wizard kills or not
     private void resetKillCount(){killcount = 0;}
     private void registerKill(){killcount++;}
 
@@ -80,9 +78,7 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
         return damage;
     }
 
-    @Override
-    public void tickAll(){defendTick(); tickCooldown();}
-
+    public void onTurnEnd(){defendTick(); tickCooldown();}
     public void onLevelEnd(){resetAttackBuff();}
 
     @Override
