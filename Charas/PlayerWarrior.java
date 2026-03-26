@@ -2,7 +2,7 @@ package Charas;
 import java.util.List;
 import java.util.ArrayList;
 
-public class PlayerWarrior extends MainPlayer implements EntityAction{
+public class PlayerWarrior extends MainPlayer implements EntityAction, TickCooldown{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
     private static final int BASE_ATTACK = 40;
@@ -17,7 +17,7 @@ public class PlayerWarrior extends MainPlayer implements EntityAction{
         this.entitytype = TypeofEntity.PLAY_WAR;
     }
 
-    public int basicAttack(MainEntity defender){return Math.max(0, this.attack - defender.effectiveDefense());}
+    public int basicAttack(MainEntity defender){return Math.max(0, effectiveAttack() - defender.effectiveDefense());}
     
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
@@ -54,8 +54,8 @@ public class PlayerWarrior extends MainPlayer implements EntityAction{
         return damage;
     }
 
-    public void onTurnEnd(){defendTick(); tickCooldown();}
-    public void onLevelEnd(){return;}
+    @Override
+    public void tickAll(){defendTick(); tickCooldown();}
 
     @Override
     public void showStats(){

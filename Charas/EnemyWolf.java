@@ -1,6 +1,6 @@
 package Charas;
 
-public class EnemyWolf extends MainEnemy implements EntityAction{
+public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
     private static final int BASE_HEALTH = 40;
     private static final int BASE_ATTACK = 45;
     private static final int BASE_DEFENSE = 5;
@@ -18,7 +18,7 @@ public class EnemyWolf extends MainEnemy implements EntityAction{
             System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
-        return Math.max(0, this.attack - defender.effectiveDefense());
+        return Math.max(0, effectiveAttack() - defender.effectiveDefense());
     }
 
     //warrior skill cooldown will be longer than the stunwindow for mobs
@@ -27,11 +27,8 @@ public class EnemyWolf extends MainEnemy implements EntityAction{
     public boolean stunStatus(){return stunTurn>0;}
     private void stunTick(){if (stunTurn>0) stunTurn--;}
 
-    public void onTurnEnd(){stunTick();}
-
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
-    public void onLevelEnd(){return;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -45,6 +42,8 @@ public class EnemyWolf extends MainEnemy implements EntityAction{
         }
         return damage;
     }
+
+    public void tickAll(){stunTick();}
 
     public void gameReset(){
         this.health = BASE_HEALTH;
