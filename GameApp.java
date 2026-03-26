@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 import Items.Item;
 import Items.SmokeBomb;
-import Characters.EnemyGoblin;
+import Characters.EneGoblin;
 import Characters.EnemyWolf;
 import Characters.MainEnemy;
 import Characters.MainPlayer;
@@ -133,18 +133,18 @@ public class GameApp {
     // --- setup difficulties ---
       Difficulty easy = new Difficulty(
           "Easy",
-          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin(), new EnemyGoblin() },   // 3 goblins
+          new MainEnemy[]{ new EneGoblin(), new EneGoblin(), new EneGoblin() },   // 3 goblins
           null
       );
       Difficulty medium = new Difficulty(
           "Medium",
-          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf() },
+          new MainEnemy[]{ new EneGoblin(), new EnemyWolf() },
           new MainEnemy[]{ new EnemyWolf(), new EnemyWolf() }
       );
       Difficulty hard = new Difficulty(
           "Hard",
-          new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin() },
-          new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf(), new EnemyWolf() }
+          new MainEnemy[]{ new EneGoblin(), new EneGoblin() },
+          new MainEnemy[]{ new EneGoblin(), new EnemyWolf(), new EnemyWolf() }
       );     
 
     //user input
