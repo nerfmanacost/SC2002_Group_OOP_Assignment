@@ -1,5 +1,5 @@
 package Difficulty;
-import Characters.EnemyGoblin;
+import Characters.Enemygoblin;
 import Characters.EnemyWolf;
 import Characters.MainEnemy;
 
@@ -38,7 +38,7 @@ public class Difficulty {
     int goblins = 0, wolves = 0;
 
     for (MainEnemy e : wave) {
-        if (e instanceof EnemyGoblin) goblins++;
+        if (e instanceof Enemygoblin) goblins++;
         if (e instanceof EnemyWolf) wolves++;
     }
 
