@@ -1,4 +1,6 @@
-public class EnemyGoblin extends MainEnemy{
+package Characters;
+
+public class EnemyGoblin extends MainEnemy implements EntityAction, TickCooldown{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
     private static final int BASE_DEFENSE = 15;
@@ -20,12 +22,14 @@ public class EnemyGoblin extends MainEnemy{
             System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
-        return Math.max(0, this.attack - defender.effectiveDefense());
+        return Math.max(0, effectiveAttack() - defender.effectiveDefense());
     }
 
-    public void onTurnEnd(){stunTick();}
+    public void tickAll(){stunTick();}
 
     public int effectiveDefense(){return this.defense;}
+    public int effectiveAttack(){return this.attack;}
+    
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -41,7 +45,7 @@ public class EnemyGoblin extends MainEnemy{
     }
 
     //resetting for level (in case)
-    public void resetStats(){
+    public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
