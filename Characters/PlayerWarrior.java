@@ -54,10 +54,6 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
         return damage;
     }
 
-    public void heal(int health) {
-        this.health = Math.min(this.health + health, BASE_HEALTH);
-    }
-
     @Override
     public void tickAll(){defendTick(); tickCooldown();}
 

@@ -51,7 +51,7 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
         return totaldamage;
     }
 
-    //all wizard attack buffs are only active for one round (brief says wizard attack buffs active till end of level?)
+    //all wizard attack buffs are only active for one round
     public int skillbuff(){return attackBuff + 10 * killcount;}
     public int effectiveAttack(){return this.attack + attackBuff;}
     private void resetAttackBuff(){attackBuff = 0;}
@@ -78,10 +78,6 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
             System.out.println("You have been slain");
         }
         return damage;
-    }
-
-    public void heal(int health) {
-        this.health = Math.min(this.health + health, BASE_HEALTH);
     }
 
     @Override
