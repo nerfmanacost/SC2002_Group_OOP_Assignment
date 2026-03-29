@@ -17,12 +17,13 @@ public class GameApp {
     Scanner scanner = new Scanner(System.in);
 
     //print game title
-    try (BufferedReader reader = new BufferedReader(new FileReader("gametitle.txt"))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader("./gametitle.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
         } catch (IOException e) {
+            System.out.println(e);
             System.out.println("Error reading title file.");
         }
 
@@ -90,9 +91,9 @@ public class GameApp {
     //we also have to print the number for each item.
     //there are a total of 3 items in stated in the proj specs.
     Item[] allItems = {
-      //new Potion("Potion"),
-      new SmokeBomb("Smoke Bomb"),  
-      //new PowerStone("Power Stone"),
+      new Potion(),
+      new SmokeBomb(),
+      new PowerStone(),
     };
 
     //stores the user's choice for whichever items they want
