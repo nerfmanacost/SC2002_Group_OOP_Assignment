@@ -1,6 +1,3 @@
-import java.util.List;
-import java.util.Arrays;
-
 import Characters.EnemyGoblin;
 import Characters.EnemyWolf;
 import Characters.MainEnemy;
@@ -10,14 +7,10 @@ import Characters.PlayerWizard;
 
 public class Wave {
     private int enemyCount;
-    private List<MainEnemy> enemies;
-
-    public Wave(List<MainEnemy> enemies) {
-        this.enemies = enemies;
-    }
+    private MainEnemy[] enemies;
 
     public Wave(MainEnemy[] enemies) {
-        this.enemies = Arrays.asList(enemies);
+        this.enemies = enemies;
     }
 
     // enemies alive in wave
@@ -33,10 +26,10 @@ public class Wave {
 
     // total enemies in wave
     public int totalEnemies(){
-        return enemies.size();
+        return enemies.length;
     }
 
-    public List<MainEnemy> getWave() {
+    public MainEnemy[] getWave() {
         return enemies;
     }
 
@@ -49,19 +42,14 @@ public class Wave {
         }
     }
 
-    // change to next wave
-    public void changeWave(List<MainEnemy> enemies) {
-        this.enemies = enemies;
-    }
-
     public void changeWave(MainEnemy[] enemies) {
-        this.enemies = Arrays.asList(enemies);
+        this.enemies = enemies;
     }
 
     // enemies take basic attack damage
     public boolean enemyTakeBasicAttackDamage(MainPlayer player, int target) {
         int damage, result;
-        MainEnemy enemy = enemies.get(target - 1);
+        MainEnemy enemy = enemies[target - 1];
         damage = player.basicAttack(enemy);
         result = enemy.takeDamage(damage);
         if (result == 0) {
@@ -74,7 +62,7 @@ public class Wave {
     // subject enemies to skills
     public boolean enemyTakeSkillDamage(PlayerWarrior warrior, int target) {
         int damage, stunDuration = 2;
-        MainEnemy enemy = enemies.get(target - 1);
+        MainEnemy enemy = enemies[target - 1];
         damage = warrior.specialskill(enemy);
         enemy.setStun(stunDuration);
         enemy.takeDamage(damage);
