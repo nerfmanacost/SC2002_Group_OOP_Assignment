@@ -1,7 +1,7 @@
 package Characters;
 
 
-public class PlayerWarrior extends MainPlayer implements EntityAction, TickCooldown{
+public class PlayerWarrior extends MainPlayer{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
     private static final int BASE_ATTACK = 40;
@@ -21,11 +21,14 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
 
-    public int defendSkill(){activateDefend(); return effectiveDefense();}
+    public void defendSkill(){activateDefend();}
 
     //if defendturnremaining > 0 return this.def + 10
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
     public int effectiveAttack(){return this.attack;}
+
+    public int getBaseHealth(){return BASE_HEALTH;}
+    
 
     public int specialskill(MainEnemy enemy){
         if (skillcooldown > 0){
@@ -52,6 +55,10 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
         }
         return damage;
     }
+
+    public int getHealth(){return this.health;}
+    public void healHealth(int heal){}
+
 
     @Override
     public void tickAll(){defendTick(); tickCooldown();}

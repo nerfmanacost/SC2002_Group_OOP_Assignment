@@ -1,10 +1,10 @@
 package Items;
 
 public class SmokeBomb extends Item{
-    public SmokeBomb(String name){
-        super(name);
+    public SmokeBomb(){
+        super("Smoke Bomb");
     }
-    public String effect(){
-        return "placeholder";  
+    public void listEffect(){
+        System.out.println("Enemy attacks no longer deal damage. Lasts for 2 turns.");
     }
 }

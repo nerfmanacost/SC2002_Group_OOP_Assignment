@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.Scanner;
 import Items.Item;
 import Items.SmokeBomb;
+import Items.Potion;
+import Items.PowerStone;
 import Characters.EnemyGoblin;
 import Characters.EnemyWolf;
 import Characters.MainEnemy;
@@ -23,6 +25,7 @@ public class GameApp {
                 System.out.println(line);
             }
         } catch (IOException e) {
+            System.out.println(e);
             System.out.println("Error reading title file.");
         }
 
@@ -90,9 +93,9 @@ public class GameApp {
     //we also have to print the number for each item.
     //there are a total of 3 items in stated in the proj specs.
     Item[] allItems = {
-      //new Potion("Potion"),
-      new SmokeBomb("Smoke Bomb"),  
-      //new PowerStone("Power Stone"),
+      new Potion(),
+      new SmokeBomb(),
+      new PowerStone(),
     };
 
     //stores the user's choice for whichever items they want
@@ -145,10 +148,9 @@ public class GameApp {
           "Hard",
           new MainEnemy[]{ new EnemyGoblin(), new EnemyGoblin() },
           new MainEnemy[]{ new EnemyGoblin(), new EnemyWolf(), new EnemyWolf() }
-      );     
+      );
 
     //user input
-    char userSelectDifficulty; 
     //this is the difficulty we will pass into GameSession
     Difficulty selectedDifficulty;
 
@@ -170,7 +172,6 @@ public class GameApp {
       if (userChoice != 'E' && userChoice != 'M' && userChoice != 'H'){
         System.out.println("Please enter a valid choice: E, M or H and press enter.");
       }else {
-        userSelectDifficulty = userChoice;
         // match char to difficulty object
         if (userChoice == 'E')      selectedDifficulty = easy;
         else if (userChoice == 'M') selectedDifficulty = medium;
@@ -179,8 +180,8 @@ public class GameApp {
         break;
       }
     }
-
     //with these userSelected fields, we will construct a new GameSession.
-
+    GameSession game =  new GameSession(selectedDifficulty, player);
+    game.startGame();
   }
 }

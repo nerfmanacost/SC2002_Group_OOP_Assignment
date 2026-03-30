@@ -1,6 +1,6 @@
 package Characters;
 
-public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldown{
+public class PlayerWizard extends MainPlayer{
     private static final int BASE_HEALTH = 200;
     private static final int BASE_ATTACK = 50;
     private static final int BASE_DEFENSE = 10;
@@ -21,14 +21,17 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
         int damage = Math.max(0, effectiveAttack() - defender.effectiveDefense());
         return damage;
     }
+    
+    public int getHealth(){return this.health;}
+    public void healHealth(int heal){}
+
 
     //defense skill activation and tick cooldown
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
-    public int defendSkill(){
+    public void defendSkill(){
         //hard code turn count so it becomes easier
         activateDefend();
-        return effectiveDefense();
     }
 
     //special skill wizard is going to attack aoe all enemies => check for all enemies if their health is 0 after they
@@ -68,6 +71,7 @@ public class PlayerWizard extends MainPlayer implements EntityAction, TickCooldo
 
     //effective defense to add another layer of encapsulation
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
+    public int getBaseHealth(){return BASE_HEALTH;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 

@@ -1,6 +1,6 @@
 package Characters;
 
-public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
+public class EnemyWolf extends MainEnemy{
     private static final int BASE_HEALTH = 40;
     private static final int BASE_ATTACK = 45;
     private static final int BASE_DEFENSE = 5;
@@ -55,9 +55,9 @@ public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
     @Override
     public void showStats(){
         System.out.println(NAME);
-        System.out.println("HP: "+this.health);
-        System.out.println("ATK: "+this.attack);
-        System.out.println("DEF: "+this.defense);
-        System.out.println("SPD: "+this.speed);
+        System.out.print("HP: "+this.health+"\t");
+        System.out.print("ATK: "+this.attack+"\t");
+        System.out.print("DEF: "+this.defense+"\t");
+        System.out.println("SPD: "+this.speed+"\t");
     }
 }
