@@ -73,19 +73,6 @@ public class PlayerWizard extends MainPlayer{
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
     public int getBaseHealth(){return BASE_HEALTH;}
 
-    public int takeDamage(int damage){
-        if (this.health <= 0){ 
-            System.out.println(name+" is already dead.");
-            return 0;
-        }
-        //damage taken is strictly basic attack damage only
-        //everyone has effective defense added to their basic attack (defense is already accounted for)
-        this.health = Math.max(0, this.health - damage);
-        if (this.health == 0){
-            System.out.println("You have been slain");
-        }
-        return damage;
-    }
 
     @Override
     public void tickAll(){defendTick(); tickCooldown();}
