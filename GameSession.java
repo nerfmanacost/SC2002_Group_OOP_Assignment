@@ -7,6 +7,8 @@ import Difficulty.Difficulty;
 //The playthrough itself.
 public class GameSession {
 
+    private BattleUI battleUI;
+
     // use of static as per Josh's philoshpy.
     private static final int BASE_ACTIONS = 1;
 
@@ -67,11 +69,9 @@ public class GameSession {
 
         // Game Over
         if (gameWon == true) {
-            System.out.println("You have conquered the dungeon, ");// add playerName
-            System.out.println("You Win!!");
+            battleUI.displayVictoryScreen(player);
         } else {
-            System.out.println("YOU DIED");
-            System.out.println("Game Over!!");
+            battleUI.displayGameOverScreen(player);
             // see if need to let user to retry, to redirect to loading screen
         }
     }
