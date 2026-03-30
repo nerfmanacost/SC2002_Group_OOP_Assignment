@@ -8,8 +8,8 @@ public abstract class MainPlayer extends MainEntity {
     public void setName(String name){this.name = name;}
     public String getName(){return this.name;}
 
+    public abstract int basicAttack(MainEntity defender);
     public abstract int defendSkill();
     public abstract void gameReset();
     public abstract void getInventory();
-     
-}   
+}

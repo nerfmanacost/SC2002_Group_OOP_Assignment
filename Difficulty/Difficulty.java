@@ -19,7 +19,7 @@ public class Difficulty {
   //need to account for null
   public MainEnemy[] getBackupSpawn() {return backupSpawn; }
   //the function to check if there is backupSpawn
-  public boolean hasBackupSpawn() {return backupSpawn != null;} 
+  public boolean hasBackupSpawn() {return backupSpawn != null;}
 
   public void printWaveInfo() {
     System.out.println("  Initial Spawn:");
