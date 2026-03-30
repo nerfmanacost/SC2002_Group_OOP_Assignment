@@ -3,11 +3,9 @@ import Characters.MainPlayer;
 public class BattleUI {
   //this should be the UI stuff to display.
 
-  //only display 
-  public void displayPlayerBattleStats(MainPlayer player, int currentTurnNumber){
+  //displays user health and important stats  
+  public void displayPlayerBattleStats(MainPlayer player){
     //HAVE to display the users current item EVERY TURN, cuz user cannot backtrack option.
-    
-    System.out.println("=== " + currentTurnNumber + "==="); 
 
     //gui health bar
     int barLength = 20;
@@ -21,8 +19,22 @@ public class BattleUI {
 
   }
 
-  //Shift the game over, game Victory messages function here
+  //Displays current turn number
+  public void dislpayCurrentTurnNumber(int currentTurnNumber){
+    System.out.println("=== Turn " + currentTurnNumber + "==="); 
+  }
 
+  //Displays users available actions per turn.
+  public void displayUserActions(MainPlayer player){
+    System.out.println("Enter your choice:");
+    System.out.println("1. Basic Attack for: " + player.getAttack() + "dmg");
+    System.out.println("2. Defend");
+    System.out.print("3. Use Skill:");
+    player.displayUniqueSkill();
+    System.out.println("4. Use Item");
+  }
+
+  //Shift the game over, game Victory messages function here
   public void displayGameOverScreen(MainPlayer player){
     System.out.println(player.getName() + " has been slain...");
     System.out.println("=== YOU DIED ===");
