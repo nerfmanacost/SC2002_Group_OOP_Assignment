@@ -1,8 +1,7 @@
 package Characters;
 
-public abstract class MainEnemy extends MainEntity{
+public abstract class MainEnemy extends MainEntity implements EnemyDebuff{
     public MainEnemy(int health, int attack, int defense, int speed){
         super(health, attack, defense, speed);
     }
-    public abstract int setStun(int duration);
 }
