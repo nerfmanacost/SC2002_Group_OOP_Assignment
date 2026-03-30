@@ -33,7 +33,6 @@ public class Difficulty {
     }
   }
 
-
   private void printEnemyCounts(MainEnemy[] wave) {
     int goblins = 0, wolves = 0;
 
