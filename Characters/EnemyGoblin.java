@@ -22,12 +22,14 @@ public class EnemyGoblin extends MainEnemy{
             System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
-        return Math.max(0, this.attack - defender.effectiveDefense());
+        return Math.max(0, effectiveAttack() - defender.effectiveDefense());
     }
 
-    public void onTurnEnd(){stunTick();}
+    public void tickAll(){stunTick();}
 
     public int effectiveDefense(){return this.defense;}
+    public int effectiveAttack(){return this.attack;}
+    
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -43,7 +45,7 @@ public class EnemyGoblin extends MainEnemy{
     }
 
     //resetting for level (in case)
-    public void resetStats(){
+    public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
@@ -53,9 +55,9 @@ public class EnemyGoblin extends MainEnemy{
     @Override
     public void showStats(){
         System.out.println(NAME);
-        System.out.println("HP: "+this.health);
-        System.out.println("ATK: "+this.attack);
-        System.out.println("DEF: "+this.defense);
+        System.out.print("HP: "+this.health+"\t");
+        System.out.print("ATK: "+this.attack+"\t");
+        System.out.print("DEF: "+this.defense+"\t");
         System.out.println("SPD: "+this.speed);
     }
 }

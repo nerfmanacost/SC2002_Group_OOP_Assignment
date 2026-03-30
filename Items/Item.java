@@ -11,5 +11,5 @@ public abstract class Item {
         return this.name;
     }
 
-    public abstract String effect();
+    public abstract void listEffect();
 }

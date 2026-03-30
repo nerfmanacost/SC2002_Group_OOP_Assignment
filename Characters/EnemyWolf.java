@@ -18,7 +18,7 @@ public class EnemyWolf extends MainEnemy{
             System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
-        return Math.max(0, this.attack - defender.effectiveDefense());
+        return Math.max(0, effectiveAttack() - defender.effectiveDefense());
     }
 
     //warrior skill cooldown will be longer than the stunwindow for mobs
@@ -27,9 +27,8 @@ public class EnemyWolf extends MainEnemy{
     public boolean stunStatus(){return stunTurn>0;}
     private void stunTick(){if (stunTurn>0) stunTurn--;}
 
-    public void onTurnEnd(){stunTick();}
-
     public int effectiveDefense(){return this.defense;}
+    public int effectiveAttack(){return this.attack;}
 
     public int takeDamage(int damage){
         if (this.health <= 0){ 
@@ -44,7 +43,9 @@ public class EnemyWolf extends MainEnemy{
         return damage;
     }
 
-    public void resetStats(){
+    public void tickAll(){stunTick();}
+
+    public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
@@ -54,9 +55,9 @@ public class EnemyWolf extends MainEnemy{
     @Override
     public void showStats(){
         System.out.println(NAME);
-        System.out.println("HP: "+this.health);
-        System.out.println("ATK: "+this.attack);
-        System.out.println("DEF: "+this.defense);
-        System.out.println("SPD: "+this.speed);
+        System.out.print("HP: "+this.health+"\t");
+        System.out.print("ATK: "+this.attack+"\t");
+        System.out.print("DEF: "+this.defense+"\t");
+        System.out.println("SPD: "+this.speed+"\t");
     }
 }

@@ -1,7 +1,5 @@
 package Characters;
 
-import java.util.List;
-import java.util.ArrayList;
 
 public class PlayerWarrior extends MainPlayer{
     //use of static vars because we want the changes to reflect as the game continues
@@ -18,15 +16,19 @@ public class PlayerWarrior extends MainPlayer{
         this.entitytype = TypeofEntity.PLAY_WAR;
     }
 
-    public int basicAttack(MainEntity defender){return Math.max(0, this.attack - defender.effectiveDefense());}
+    public int basicAttack(MainEntity defender){return Math.max(0, effectiveAttack() - defender.effectiveDefense());}
     
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
 
-    public int defendSkill(){activateDefend(); return effectiveDefense();}
+    public void defendSkill(){activateDefend();}
 
     //if defendturnremaining > 0 return this.def + 10
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
+    public int effectiveAttack(){return this.attack;}
+
+    public int getBaseHealth(){return BASE_HEALTH;}
+    
 
     public int specialskill(MainEnemy enemy){
         if (skillcooldown > 0){
@@ -54,7 +56,12 @@ public class PlayerWarrior extends MainPlayer{
         return damage;
     }
 
-    public void onTurnEnd(){defendTick(); tickCooldown();}
+    public int getHealth(){return this.health;}
+    public void healHealth(int heal){}
+
+
+    @Override
+    public void tickAll(){defendTick(); tickCooldown();}
 
     @Override
     public void showStats(){
@@ -73,9 +80,9 @@ public class PlayerWarrior extends MainPlayer{
         this.speed = BASE_SPEED;
     }
 
-    private List<Inventory> inventory = new ArrayList<>();
+    private Inventory[] inventory;
     public void getInventory(){accessInventory(inventory);}
-    protected void accessInventory(List <Inventory> inventory){
+    private void accessInventory(Inventory[] inventory){
         for (Inventory item: inventory){
             System.out.println(item);
         }
