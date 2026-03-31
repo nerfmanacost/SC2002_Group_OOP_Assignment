@@ -29,6 +29,7 @@ public class EnemyGoblin extends MainEnemy{
 
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
+    public int getBaseHealth(){return BASE_HEALTH;}
     
 
     //resetting for level (in case)

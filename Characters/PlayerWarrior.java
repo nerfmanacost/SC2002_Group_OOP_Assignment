@@ -44,7 +44,6 @@ public class PlayerWarrior extends MainPlayer{
     private void activateSkill(){skillcooldown = 3;}
 
 
-    public int getHealth(){return this.health;}
     public void healHealth(int heal){}
 
 
@@ -66,13 +65,5 @@ public class PlayerWarrior extends MainPlayer{
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
-    }
-
-    private Inventory[] inventory;
-    public void getInventory(){accessInventory(inventory);}
-    private void accessInventory(Inventory[] inventory){
-        for (Inventory item: inventory){
-            System.out.println(item);
-        }
     }
 }

@@ -95,11 +95,4 @@ public class PlayerWizard extends MainPlayer{
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
     }
-    private Inventory[] inventory;
-    public void getInventory(){accessInventory(inventory);}
-    private void accessInventory(Inventory[] inventory){
-        for (Inventory item: inventory){
-            System.out.println(item);
-        }
-    }
 }

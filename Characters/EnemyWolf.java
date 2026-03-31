@@ -29,6 +29,7 @@ public class EnemyWolf extends MainEnemy{
 
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
+    public int getBaseHealth(){return BASE_HEALTH;}
 
     public void tickAll(){stunTick();}
 

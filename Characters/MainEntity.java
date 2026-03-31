@@ -31,6 +31,7 @@ public abstract class MainEntity implements EntityAction, TickCooldown{
     public abstract void showStats();
     public abstract int basicAttack(MainEntity defender);
     public abstract int effectiveDefense();
+    public abstract int getBaseHealth();
     
     public int takeDamage(int damage){
         if (this.health <= 0){ 
