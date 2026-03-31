@@ -46,7 +46,6 @@ public class PlayerWarrior extends MainPlayer{
 
     public void healHealth(int heal){}
 
-
     @Override
     public void tickAll(){defendTick(); tickCooldown();}
 
@@ -58,6 +57,11 @@ public class PlayerWarrior extends MainPlayer{
         System.out.println("DEF: "+this.defense);
         System.out.println("SPD: "+this.speed);
     }
+
+    @Override 
+    public void displayUniqueSkill(){
+        System.out.println("Shield Bash");
+    } 
 
     //for resetting of all base stats at the end of the game
     public void gameReset(){
