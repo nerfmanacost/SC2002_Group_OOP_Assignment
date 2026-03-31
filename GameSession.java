@@ -28,6 +28,8 @@ public class GameSession {
         this.difficulty = gameDifficulty;
         this.player = player;
         this.actions = BASE_ACTIONS;
+
+        this.battleUI = new BattleUI();
     }
 
     private int currentTurn = 1;
@@ -90,7 +92,7 @@ public class GameSession {
         System.out.println("Enemies:");
         wave.printWaveInfo();
         while (true) {
-            battleUI.dislpayCurrentTurnNumber(currentTurn);
+            battleUI.displayCurrentTurnNumber(currentTurn);
             //print user info per turn
             battleUI.displayPlayerBattleStats(player);
             //System.out.println("Enter your choice:\n1. Attack\n2. Defend\n3. Use special skill\n4. Use item");
@@ -152,7 +154,7 @@ public class GameSession {
                     while (true) {
                         System.out.println(String.format("Choose an enemy to Shield Bash(1 - %d): ", wave.totalEnemies()));
                         if (sc.hasNextInt()) {
-                            userChoice = sc.nextInt()
+                            userChoice = sc.nextInt();
                             sc.nextLine();
                             if (userChoice < 1 || userChoice > wave.totalEnemies()) {
                                 System.out.println(String.format("Enter a number between 1 and %d. ", wave.totalEnemies()));

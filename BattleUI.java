@@ -9,9 +9,9 @@ public class BattleUI {
 
     //gui health bar
     int barLength = 20;
-    int filled = (int)((double) player.getHealth() / player.maxHP * barLength);
+    int filled = (int)((double) player.getHealth() / player.getBaseHealth() * barLength);
     String bar = "[" + "█".repeat(filled) + "-".repeat(barLength - filled) + "]";
-    System.out.println("HP: " + bar + " " + currentHP + "/" + maxHP);
+    System.out.println("HP: " + bar + " " + player.getHealth() + "/" + player.getBaseHealth());
 
     System.out.println("DEF: " + player.getDefense());
 
@@ -20,7 +20,7 @@ public class BattleUI {
   }
 
   //Displays current turn number
-  public void dislpayCurrentTurnNumber(int currentTurnNumber){
+  public void displayCurrentTurnNumber(int currentTurnNumber){
     System.out.println("=== Turn " + currentTurnNumber + "==="); 
   }
 
@@ -29,7 +29,7 @@ public class BattleUI {
     System.out.println("Enter your choice:");
     System.out.println("1. Basic Attack for: " + player.getAttack() + "dmg");
     System.out.println("2. Defend");
-    System.out.print("3. Use Skill:");
+    System.out.print("3. Use Skill: ");
     player.displayUniqueSkill();
     System.out.println("4. Use Item");
   }
