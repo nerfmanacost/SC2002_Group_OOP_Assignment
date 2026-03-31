@@ -11,6 +11,7 @@ public class BattleUI {
     int barLength = 20;
     int filled = (int)((double) player.getHealth() / player.getBaseHealth() * barLength);
     String bar = "[" + "█".repeat(filled) + "-".repeat(barLength - filled) + "]";
+    System.out.println(player.getName());
     System.out.println("HP: " + bar + " " + player.getHealth() + "/" + player.getBaseHealth());
 
     System.out.println("DEF: " + player.getDefense());
