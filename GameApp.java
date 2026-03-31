@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
+
+import Items.Inventory;
 import Items.Item;
 import Items.SmokeBomb;
 import Items.Potion;
@@ -99,7 +101,7 @@ public class GameApp {
     };
 
     //stores the user's choice for whichever items they want
-    Item[] selectedItems = new Item[2];
+    Inventory playerInv = new Inventory(2);
     int count = 0;
 
     //System.out.println("Type in the item number and press enter for each item, you can select 2 items before your run");
@@ -118,7 +120,12 @@ public class GameApp {
           System.out.println("Invalid number, enter a number from 1 to 3.");
         }else{
           //duplicate items ARE allowed.
-          selectedItems[count] = allItems[userSelect - 1];
+
+          Item selected = allItems[userSelect -1];
+          if (selected instanceof Potion) playerInv.addToInventory(new Potion());
+          else if (selected instanceof PowerStone) playerInv.addToInventory(new PowerStone());
+          else if (selected instanceof SmokeBomb) playerInv.addToInventory(new SmokeBomb());
+          
           //Need to implement printing of item name
           System.out.println("You selected - " + allItems[userSelect - 1].getName());
           count++;

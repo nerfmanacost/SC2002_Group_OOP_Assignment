@@ -9,7 +9,6 @@ public abstract class MainPlayer extends MainEntity implements PlayerBuff{
     public String getName(){return this.name;}
 
     public abstract void gameReset();
-    public abstract void getInventory();
     public abstract int getBaseHealth();
     public abstract int getHealth();
 
