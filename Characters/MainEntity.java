@@ -29,6 +29,7 @@ public abstract class MainEntity implements EntityAction, TickCooldown{
     public int getSpeed(){return speed;}
 
     public abstract void showStats();
+    public abstract String getName();
     public abstract int basicAttack(MainEntity defender);
     public abstract int effectiveDefense();
     public abstract int getBaseHealth();

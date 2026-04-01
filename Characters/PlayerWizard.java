@@ -22,7 +22,6 @@ public class PlayerWizard extends MainPlayer{
         return damage;
     }
     
-    public int getHealth(){return this.health;}
     public void healHealth(int heal){this.health = heal;}
 
 
@@ -59,6 +58,7 @@ public class PlayerWizard extends MainPlayer{
     public int skillbuff(){return attackBuff + 10 * killcount;}
     public int effectiveAttack(){return this.attack + attackBuff;}
     private void resetAttackBuff(){attackBuff = 0;}
+    public String getName(){return name;}
     
     //call reset after each use of skill, want to check eveyrtime whether wizard kills or not
     private void resetKillCount(){killcount = 0;}

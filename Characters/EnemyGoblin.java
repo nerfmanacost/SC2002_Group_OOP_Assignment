@@ -27,6 +27,7 @@ public class EnemyGoblin extends MainEnemy{
 
     public void tickAll(){stunTick();}
 
+    public String getName(){return NAME;}
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
     public int getBaseHealth(){return BASE_HEALTH;}

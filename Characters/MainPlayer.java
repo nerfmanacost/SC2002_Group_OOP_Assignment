@@ -11,7 +11,6 @@ public abstract class MainPlayer extends MainEntity implements PlayerBuff{
     public abstract void gameReset();
     public abstract int getBaseHealth();
     public abstract void healHealth(int heal);
-    public abstract int getHealth();
 
     public abstract void displayUniqueSkill();
 }
