@@ -89,6 +89,11 @@ public class PlayerWizard extends MainPlayer{
         System.out.println("SPD: "+this.speed);
     }
 
+    @Override 
+    public void displayUniqueSkill(){
+        System.out.println("Arcane Blast");
+    } 
+
     public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
