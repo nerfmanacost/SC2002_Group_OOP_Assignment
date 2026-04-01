@@ -9,6 +9,7 @@ public class PlayerWarrior extends MainPlayer{
     private static final int BASE_SPEED = 30;
     private int defendTurnRemaining = 0;
     private int skillcooldown = 0;
+    private int smokeTurnRemaining = 0;
 
 
     public PlayerWarrior(String name){
@@ -29,15 +30,23 @@ public class PlayerWarrior extends MainPlayer{
 
     public int getBaseHealth(){return BASE_HEALTH;}
     public String getName(){return name;}
+
+    public boolean smokeStatus(){return smokeTurnRemaining>0;}
+    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
+    public void setSmoke(int duration){smokeTurnRemaining = duration;}
     
 
-    public int specialskill(MainEnemy enemy){
+    public int specialskill(MainEnemy enemy, boolean usedPowerStone){
         if (skillcooldown > 0){
             System.out.println("Skill on cooldown");
             return 0;
+        }else if (usedPowerStone) {
+            System.out.println("Power Stone used, free use of skill!");
+            return basicAttack(enemy);
+        }else{
+            activateSkill();
+            return basicAttack(enemy);
         }
-        activateSkill();
-        return basicAttack(enemy);
     }
 
     public int getskillcooldown(){return skillcooldown;}
@@ -48,7 +57,7 @@ public class PlayerWarrior extends MainPlayer{
     public void healHealth(int heal){this.health = heal;}
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown();smokeTick();}
 
     @Override
     public void showStats(){
