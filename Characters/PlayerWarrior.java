@@ -28,6 +28,7 @@ public class PlayerWarrior extends MainPlayer{
     public int effectiveAttack(){return this.attack;}
 
     public int getBaseHealth(){return BASE_HEALTH;}
+    public String getName(){return name;}
     
 
     public int specialskill(MainEnemy enemy){

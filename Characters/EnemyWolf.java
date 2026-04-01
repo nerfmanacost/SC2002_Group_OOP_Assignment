@@ -27,6 +27,7 @@ public class EnemyWolf extends MainEnemy{
     public boolean stunStatus(){return stunTurn>0;}
     private void stunTick(){if (stunTurn>0) stunTurn--;}
 
+    public String getName(){return NAME;}
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
     public int getBaseHealth(){return BASE_HEALTH;}
