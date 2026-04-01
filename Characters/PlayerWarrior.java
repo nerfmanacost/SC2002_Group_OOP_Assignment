@@ -44,7 +44,7 @@ public class PlayerWarrior extends MainPlayer{
     private void activateSkill(){skillcooldown = 3;}
 
 
-    public void healHealth(int heal){}
+    public void healHealth(int heal){this.health = heal;}
 
     @Override
     public void tickAll(){defendTick(); tickCooldown();}

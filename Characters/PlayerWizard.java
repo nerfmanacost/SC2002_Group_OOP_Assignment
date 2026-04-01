@@ -23,7 +23,7 @@ public class PlayerWizard extends MainPlayer{
     }
     
     public int getHealth(){return this.health;}
-    public void healHealth(int heal){}
+    public void healHealth(int heal){this.health = heal;}
 
 
     //defense skill activation and tick cooldown
