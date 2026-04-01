@@ -36,13 +36,17 @@ public class PlayerWarrior extends MainPlayer{
     public void setSmoke(int duration){smokeTurnRemaining = duration;}
     
 
-    public int specialskill(MainEnemy enemy){
+    public int specialskill(MainEnemy enemy, boolean usedPowerStone){
         if (skillcooldown > 0){
             System.out.println("Skill on cooldown");
             return 0;
+        }else if (usedPowerStone) {
+            System.out.println("Power Stone used, free use of skill!");
+            return basicAttack(enemy);
+        }else{
+            activateSkill();
+            return basicAttack(enemy);
         }
-        activateSkill();
-        return basicAttack(enemy);
     }
 
     public int getskillcooldown(){return skillcooldown;}

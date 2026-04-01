@@ -36,23 +36,36 @@ public class PlayerWizard extends MainPlayer{
 
     //special skill wizard is going to attack aoe all enemies => check for all enemies if their health is 0 after they
     //take damage == 0, wizard will get a buff, currently idk whether the buffs checking is correct, only can tell when doing in the main program
-    public int specialskill(MainEnemy[] enemies){
+    public int specialskill(MainEnemy[] enemies, boolean usedPowerStone){
         int totaldamage = 0;
         if (this.skillcooldown > 0){
             System.out.println("Skill on cooldown");
             return 0;
-        }
-        activateSkill();
-        for (MainEnemy enemy : enemies){
-            int damage = basicAttack(enemy);
-            totaldamage += enemy.takeDamage(damage);
-            if (enemy.getHealth() == 0){
-                registerKill();
+        } else if (usedPowerStone) {
+            System.out.println("Power Stone used, free use of skill!");
+            for (MainEnemy enemy : enemies){
+                int damage = basicAttack(enemy);
+                totaldamage += enemy.takeDamage(damage);
+                if (enemy.getHealth() == 0){
+                    registerKill();
+                }
             }
+            skillbuff();
+            resetKillCount();
+            return totaldamage;
+        }else{
+            activateSkill();
+            for (MainEnemy enemy : enemies){
+                int damage = basicAttack(enemy);
+                totaldamage += enemy.takeDamage(damage);
+                if (enemy.getHealth() == 0){
+                    registerKill();
+                }
+            }
+            skillbuff();
+            resetKillCount();
+            return totaldamage;
         }
-        skillbuff();
-        resetKillCount();
-        return totaldamage;
     }
 
     //all wizard attack buffs are only active for one round
@@ -80,7 +93,7 @@ public class PlayerWizard extends MainPlayer{
 
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown(); smokeTick();}
 
     //wizard buff only resets at the end of the level (technically can be considered perm buff for the wave)
     public void onLevelEnd(){resetAttackBuff();tickAll();}
