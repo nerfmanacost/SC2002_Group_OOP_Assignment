@@ -1,6 +1,6 @@
 package Characters;
 
-public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
+public class EnemyWolf extends MainEnemy{
     private static final int BASE_HEALTH = 40;
     private static final int BASE_ATTACK = 45;
     private static final int BASE_DEFENSE = 5;
@@ -13,9 +13,13 @@ public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
         this.entitytype = TypeofEntity.ENE_WOLF;
     }
     
+    
     public int basicAttack(MainEntity defender){
         if (stunStatus()){
             System.out.println(NAME + " is stunned, unable to take action.");
+            return 0;
+        } else if (getHealth() <= 0){
+            System.out.println(NAME + " is already dead, unable to take action.");
             return 0;
         }
         return Math.max(0, effectiveAttack() - defender.effectiveDefense());
@@ -27,21 +31,10 @@ public class EnemyWolf extends MainEnemy implements EntityAction, TickCooldown{
     public boolean stunStatus(){return stunTurn>0;}
     private void stunTick(){if (stunTurn>0) stunTurn--;}
 
+    public String getName(){return NAME;}
     public int effectiveDefense(){return this.defense;}
     public int effectiveAttack(){return this.attack;}
-
-    public int takeDamage(int damage){
-        if (this.health <= 0){ 
-            System.out.println(NAME+" is already dead.");
-            return 0;
-        }
-        //damage taken is strictly basic attack damage only
-        this.health = Math.max(0, this.health - damage);
-        if (this.health == 0){
-            System.out.println(NAME+" has been slain");
-        }
-        return damage;
-    }
+    public int getBaseHealth(){return BASE_HEALTH;}
 
     public void tickAll(){stunTick();}
 

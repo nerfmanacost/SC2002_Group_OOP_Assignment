@@ -1,6 +1,6 @@
 package Characters;
 
-public abstract class MainEntity {
+public abstract class MainEntity implements EntityAction, TickCooldown{
     public enum TypeofEntity{PLAY_ENTI, PLAY_WAR, PLAY_WIZ, ENE_WOLF, ENE_GOB};
     protected int health, defense, attack, speed;
     protected String name;
@@ -29,8 +29,21 @@ public abstract class MainEntity {
     public int getSpeed(){return speed;}
 
     public abstract void showStats();
-    public abstract int takeDamage(int damage);
+    public abstract String getName();
     public abstract int basicAttack(MainEntity defender);
     public abstract int effectiveDefense();
-
+    public abstract int getBaseHealth();
+    
+    public int takeDamage(int damage){
+        if (this.health <= 0){ 
+            System.out.println(name+" is already dead.");
+            return 0;
+        }
+        //damage taken is strictly basic attack damage only
+        this.health = Math.max(0, this.health - damage);
+        if (this.health == 0){
+            System.out.println("You have been slain");
+        }
+        return damage;
+    }
 }

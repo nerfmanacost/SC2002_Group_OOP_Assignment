@@ -1,7 +1,7 @@
 package Characters;
 
 
-public class PlayerWarrior extends MainPlayer implements EntityAction, TickCooldown{
+public class PlayerWarrior extends MainPlayer{
     //use of static vars because we want the changes to reflect as the game continues
     private static final int BASE_HEALTH = 260;
     private static final int BASE_ATTACK = 40;
@@ -9,6 +9,7 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
     private static final int BASE_SPEED = 30;
     private int defendTurnRemaining = 0;
     private int skillcooldown = 0;
+    private int smokeTurnRemaining = 0;
 
 
     public PlayerWarrior(String name){
@@ -21,40 +22,42 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
     private void defendTick(){if (defendTurnRemaining>0) defendTurnRemaining--;}
     private void activateDefend(){defendTurnRemaining = 2;}
 
-    public int defendSkill(){activateDefend(); return effectiveDefense();}
+    public void defendSkill(){activateDefend();}
 
     //if defendturnremaining > 0 return this.def + 10
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
     public int effectiveAttack(){return this.attack;}
 
-    public int specialskill(MainEnemy enemy){
+    public int getBaseHealth(){return BASE_HEALTH;}
+    public String getName(){return name;}
+
+    public boolean smokeStatus(){return smokeTurnRemaining>0;}
+    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
+    public void setSmoke(int duration){smokeTurnRemaining = duration;}
+    
+
+    public int specialskill(MainEnemy enemy, boolean usedPowerStone){
         if (skillcooldown > 0){
             System.out.println("Skill on cooldown");
             return 0;
+        }else if (usedPowerStone) {
+            System.out.println("Power Stone used, free use of skill!");
+            return basicAttack(enemy);
+        }else{
+            activateSkill();
+            return basicAttack(enemy);
         }
-        activateSkill();
-        return basicAttack(enemy);
     }
 
     public int getskillcooldown(){return skillcooldown;}
     private void tickCooldown(){if (skillcooldown > 0) skillcooldown--;}
     private void activateSkill(){skillcooldown = 3;}
 
-    public int takeDamage(int damage){
-        if (this.health <= 0){ 
-            System.out.println(name+" is already dead.");
-            return 0;
-        }
-        //damage taken is strictly basic attack damage only
-        this.health = Math.max(0, this.health - damage);
-        if (this.health == 0){
-            System.out.println("You have been slain");
-        }
-        return damage;
-    }
+
+    public void healHealth(int heal){this.health = heal;}
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown();smokeTick();}
 
     @Override
     public void showStats(){
@@ -65,19 +68,16 @@ public class PlayerWarrior extends MainPlayer implements EntityAction, TickCoold
         System.out.println("SPD: "+this.speed);
     }
 
+    @Override 
+    public void displayUniqueSkill(){
+        System.out.println("Shield Bash");
+    } 
+
     //for resetting of all base stats at the end of the game
     public void gameReset(){
         this.health = BASE_HEALTH;
         this.attack = BASE_ATTACK;
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
-    }
-
-    private Inventory[] inventory;
-    public void getInventory(){accessInventory(inventory);}
-    private void accessInventory(Inventory[] inventory){
-        for (Inventory item: inventory){
-            System.out.println(item);
-        }
     }
 }

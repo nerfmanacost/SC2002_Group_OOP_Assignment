@@ -7,6 +7,8 @@ import Difficulty.Difficulty;
 //The playthrough itself.
 public class GameSession {
 
+    private BattleUI battleUI;
+
     // use of static as per Josh's philoshpy.
     private static final int BASE_ACTIONS = 1;
 
@@ -26,11 +28,11 @@ public class GameSession {
         this.difficulty = gameDifficulty;
         this.player = player;
         this.actions = BASE_ACTIONS;
+
+        this.battleUI = new BattleUI();
     }
 
-    // we will start from turn 0, then when its our turn we increment, so we alr
-    // increment by 1 from the start.
-    private int currentTurn = 0;
+    private int currentTurn = 1;
     // if game over, we print game over screen.
     // see how we want to implement user select after game over.
     private boolean isGameOver = false;
@@ -67,11 +69,9 @@ public class GameSession {
 
         // Game Over
         if (gameWon == true) {
-            System.out.println("You have conquered the dungeon, ");// add playerName
-            System.out.println("You Win!!");
+            battleUI.displayVictoryScreen(player);
         } else {
-            System.out.println("YOU DIED");
-            System.out.println("Game Over!!");
+            battleUI.displayGameOverScreen(player);
             // see if need to let user to retry, to redirect to loading screen
         }
     }
@@ -92,7 +92,11 @@ public class GameSession {
         System.out.println("Enemies:");
         wave.printWaveInfo();
         while (true) {
-            System.out.println("Enter your choice:\n1. Attack\n2. Defend\n3. Use special skill\n4. Use item");
+            battleUI.displayCurrentTurnNumber(currentTurn);
+            //print user info per turn
+            battleUI.displayPlayerBattleStats(player);
+            //System.out.println("Enter your choice:\n1. Attack\n2. Defend\n3. Use special skill\n4. Use item");
+            battleUI.displayUserActions(player);
             if (sc.hasNextInt()) {
                 userChoice = sc.nextInt();
                 sc.nextLine();
@@ -134,12 +138,14 @@ public class GameSession {
                         break;
                     }
                 }
+                currentTurn++;
                 break;
 
             // Defend
             case 2:
                 player.defendSkill();
                 System.out.println(String.format("%s raises defense to %d for 2 turns.", player.getName(), player.getDefense()));
+                currentTurn++;
                 break;
 
             // skill
@@ -163,9 +169,12 @@ public class GameSession {
                 } else if(player instanceof PlayerWizard wizard){
                     wave.enemyTakeSkillDamage(wizard);
                 }
+                currentTurn++;
                 break;
             case 4:
                 // item
+
+                currentTurn++;
                 break;
         }
 
