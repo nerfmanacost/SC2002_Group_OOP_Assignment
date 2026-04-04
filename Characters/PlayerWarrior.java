@@ -37,12 +37,12 @@ public class PlayerWarrior extends MainPlayer{
     
 
     public int specialskill(MainEnemy enemy, boolean usedPowerStone){
-        if (skillcooldown > 0){
-            System.out.println("Skill on cooldown");
-            return 0;
-        }else if (usedPowerStone) {
+        if (usedPowerStone) {
             System.out.println("Power Stone used, free use of skill!");
             return basicAttack(enemy);
+        } else if (skillcooldown > 0){
+            System.out.println("Skill on cooldown.");
+            return 0;
         }else{
             activateSkill();
             return basicAttack(enemy);
@@ -54,7 +54,7 @@ public class PlayerWarrior extends MainPlayer{
     private void activateSkill(){skillcooldown = 3;}
 
 
-    public void healHealth(int heal){this.health = heal;}
+    public void healHealth(int heal){this.health = Math.min(this.health + heal, BASE_HEALTH);}
 
     @Override
     public void tickAll(){defendTick(); tickCooldown();smokeTick();}
