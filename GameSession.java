@@ -1,4 +1,6 @@
 import java.util.Scanner;
+
+import Characters.MainEnemy;
 import Characters.MainPlayer;
 import Characters.PlayerWarrior;
 import Characters.PlayerWizard;
@@ -13,27 +15,14 @@ import Items.PowerStone;
 public class GameSession {
 
     private BattleUI battleUI;
-
-    // use of static as per Josh's philoshpy.
-    private static final int BASE_ACTIONS = 1;
-
-    private int actions;
     private Difficulty difficulty;
     private MainPlayer player;
     private Inventory inv;
-
-    // need to bring the Item[] array that contains the list (2 items) that user has
-    // chosen here.
-
-    // private static
-
-    // we have to get the MainClass here....
 
     // Constructor
     public GameSession(Difficulty gameDifficulty, MainPlayer player, Inventory inv) {
         this.difficulty = gameDifficulty;
         this.player = player;
-        this.actions = BASE_ACTIONS;
         this.inv = inv;
         this.battleUI = new BattleUI();
     }
@@ -49,7 +38,18 @@ public class GameSession {
         System.out.println("New Game Start!");
         System.out.println("Incoming wave: ");
         boolean gameWon = false, changeWave = false;
-
+        int enemySpeed = 0;
+        int playerSpeed = player.getSpeed();
+        for(MainEnemy enemy : wave.getWave()){
+            if(enemy.getSpeed() > enemySpeed){
+                enemySpeed = enemy.getSpeed();
+            }
+        }
+        if(playerSpeed >= enemySpeed){
+            System.out.println(String.format("%s is faster and starts first.", player.getName()));
+        } else {
+            System.out.println("Enemies are faster and they start first.");
+        }
         while (!isGameOver) {
             // main game logic
             if (changeWave && this.difficulty.hasBackupSpawn()) {
@@ -65,8 +65,16 @@ public class GameSession {
                 break;
             }
 
-            changeWave = playerTurn(player, wave, changeWave);
-            isGameOver = enemyTurn(player, wave);
+
+            if(playerSpeed >= enemySpeed){
+                changeWave = playerTurn(player, wave, changeWave);
+                isGameOver = enemyTurn(player, wave);
+            } else {
+                isGameOver = enemyTurn(player, wave);
+                changeWave = playerTurn(player, wave, changeWave);
+            }
+
+
             if (isGameOver) {
                 gameWon = false;
             }
@@ -218,8 +226,6 @@ public class GameSession {
                 break;
         }
         currentTurn++;
-        // reset action count
-        actions = BASE_ACTIONS;
         if (wave.enemiesRemaining() == 0) {
             return true;
         }
