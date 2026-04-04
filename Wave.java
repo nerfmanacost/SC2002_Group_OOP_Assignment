@@ -63,7 +63,7 @@ public class Wave {
     public boolean enemyTakeSkillDamage(PlayerWarrior warrior, int target) {
         int damage, stunDuration = 2;
         MainEnemy enemy = enemies[target - 1];
-        damage = warrior.specialskill(enemy);
+        damage = warrior.specialskill(enemy, false);
         enemy.setStun(stunDuration);
         enemy.takeDamage(damage);
         System.out.println(String.format("xxx has taken %d damage and is stunned for %d turns.", damage, stunDuration));
@@ -72,7 +72,7 @@ public class Wave {
 
     public void enemyTakeSkillDamage(PlayerWizard wizard) {
         int damage;
-        damage = wizard.specialskill(enemies);
+        damage = wizard.specialskill(enemies, false);
         System.out.println(String.format("Enemies take a combined %d damage.", damage));
     }
 
