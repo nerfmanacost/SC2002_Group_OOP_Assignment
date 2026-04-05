@@ -15,11 +15,11 @@ public class EnemyWolf extends MainEnemy{
     
     
     public int basicAttack(MainEntity defender){
-        if (stunStatus()){
-            System.out.println(NAME + " is stunned, unable to take action.");
+        if (getHealth() <= 0){
+            System.out.println(NAME + " is dead, unable to take action.");
             return 0;
-        } else if (getHealth() <= 0){
-            System.out.println(NAME + " is already dead, unable to take action.");
+        } else if (stunStatus()){
+            System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
         return Math.max(0, effectiveAttack() - defender.effectiveDefense());

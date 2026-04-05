@@ -33,17 +33,4 @@ public abstract class MainEntity implements EntityAction, TickCooldown{
     public abstract int basicAttack(MainEntity defender);
     public abstract int effectiveDefense();
     public abstract int getBaseHealth();
-    
-    public int takeDamage(int damage){
-        if (this.health <= 0){ 
-            System.out.println(name+" is already dead.");
-            return 0;
-        }
-        //damage taken is strictly basic attack damage only
-        this.health = Math.max(0, this.health - damage);
-        if (this.health == 0){
-            System.out.println("You have been slain");
-        }
-        return damage;
-    }
 }

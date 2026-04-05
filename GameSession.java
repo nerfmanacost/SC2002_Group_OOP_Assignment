@@ -1,34 +1,29 @@
 import java.util.Scanner;
+
+import Characters.MainEnemy;
 import Characters.MainPlayer;
 import Characters.PlayerWarrior;
 import Characters.PlayerWizard;
 import Difficulty.Difficulty;
+import Items.Inventory;
+import Items.Item;
+import Items.Potion;
+import Items.SmokeBomb;
+import Items.PowerStone;
 
 //The playthrough itself.
 public class GameSession {
 
     private BattleUI battleUI;
-
-    // use of static as per Josh's philoshpy.
-    private static final int BASE_ACTIONS = 1;
-
-    private int actions;
     private Difficulty difficulty;
     private MainPlayer player;
-
-    // need to bring the Item[] array that contains the list (2 items) that user has
-    // chosen here.
-
-    // private static
-
-    // we have to get the MainClass here....
+    private Inventory inv;
 
     // Constructor
-    public GameSession(Difficulty gameDifficulty, MainPlayer player) {
+    public GameSession(Difficulty gameDifficulty, MainPlayer player, Inventory inv) {
         this.difficulty = gameDifficulty;
         this.player = player;
-        this.actions = BASE_ACTIONS;
-
+        this.inv = inv;
         this.battleUI = new BattleUI();
     }
 
@@ -43,7 +38,18 @@ public class GameSession {
         System.out.println("New Game Start!");
         System.out.println("Incoming wave: ");
         boolean gameWon = false, changeWave = false;
-
+        int enemySpeed = 0;
+        int playerSpeed = player.getSpeed();
+        for(MainEnemy enemy : wave.getWave()){
+            if(enemy.getSpeed() > enemySpeed){
+                enemySpeed = enemy.getSpeed();
+            }
+        }
+        if(playerSpeed >= enemySpeed){
+            System.out.println(String.format("%s is faster and starts first.", player.getName()));
+        } else {
+            System.out.println("Enemies are faster and they start first.");
+        }
         while (!isGameOver) {
             // main game logic
             if (changeWave && this.difficulty.hasBackupSpawn()) {
@@ -59,8 +65,16 @@ public class GameSession {
                 break;
             }
 
-            changeWave = playerTurn(player, wave);
-            isGameOver = enemyTurn(player, wave);
+
+            if(playerSpeed >= enemySpeed){
+                changeWave = playerTurn(player, wave, changeWave);
+                isGameOver = enemyTurn(player, wave);
+            } else {
+                isGameOver = enemyTurn(player, wave);
+                changeWave = playerTurn(player, wave, changeWave);
+            }
+
+
             if (isGameOver) {
                 gameWon = false;
             }
@@ -76,7 +90,7 @@ public class GameSession {
         }
     }
 
-    private boolean playerTurn(MainPlayer player, Wave wave) {
+    private boolean playerTurn(MainPlayer player, Wave wave, boolean changeWave) {
 
         int userChoice = 0;
         boolean result;
@@ -88,14 +102,15 @@ public class GameSession {
         } else if (player instanceof PlayerWizard wizard) {
             wizard.tickAll();
         }
-
-        System.out.println("Enemies:");
+        if(changeWave){
+            battleUI.printNextWaveHeader();
+        }
+        System.out.println("====== ENEMIES ======");
         wave.printWaveInfo();
         while (true) {
             battleUI.displayCurrentTurnNumber(currentTurn);
             //print user info per turn
             battleUI.displayPlayerBattleStats(player);
-            //System.out.println("Enter your choice:\n1. Attack\n2. Defend\n3. Use special skill\n4. Use item");
             battleUI.displayUserActions(player);
             if (sc.hasNextInt()) {
                 userChoice = sc.nextInt();
@@ -121,8 +136,8 @@ public class GameSession {
         }
 
         switch (userChoice) {
-            // Attack
             case 1:
+                // Attack
                 while (true) {
                     System.out.println(String.format("Choose an enemy to attack(1 - %d): ", wave.totalEnemies()));
                     if (sc.hasNextInt()) {
@@ -138,18 +153,14 @@ public class GameSession {
                         break;
                     }
                 }
-                currentTurn++;
                 break;
-
-            // Defend
             case 2:
+                //Defend
                 player.defendSkill();
-                System.out.println(String.format("%s raises defense to %d for 2 turns.", player.getName(), player.getDefense()));
-                currentTurn++;
-                break;
-
-            // skill
+                System.out.println(String.format("%s raises defense to %d for 2 turns.", player.getName(), player.effectiveDefense()));
+                break;            
             case 3:
+                //Skill usage
                 if (player instanceof PlayerWarrior warrior) {
                     while (true) {
                         System.out.println(String.format("Choose an enemy to Shield Bash(1 - %d): ", wave.totalEnemies()));
@@ -162,33 +173,67 @@ public class GameSession {
                             }
                         }
                         result = wave.enemyTakeSkillDamage(warrior, userChoice);
-                        if (result) {
+                        if(result){
                             break;
                         }
                     }
                 } else if(player instanceof PlayerWizard wizard){
                     wave.enemyTakeSkillDamage(wizard);
                 }
-                currentTurn++;
                 break;
             case 4:
-                // item
-
-                currentTurn++;
+                //Item usage
+                inv.printInventory();
+                System.out.println("Choose item to use:");
+                while(true){
+                    if(sc.hasNextInt()){
+                        userChoice = sc.nextInt();
+                        sc.nextLine();
+                    }
+                    if(userChoice <= inv.getSize() && userChoice >= 1){
+                        break;
+                    } else {
+                        System.out.println(String.format("Please enter a number between 1 and %d.", inv.getSize()));
+                    }
+                }
+                Item item = inv.getiItem(userChoice - 1);
+                System.out.println(String.format("%s selected.", item.getName()));
+                if(item instanceof Potion potion){
+                    potion.effect(player);
+                    battleUI.displayPlayerHealth(player);
+                } else if (item instanceof SmokeBomb sb){
+                    sb.effect(player);
+                } else if (item instanceof PowerStone){
+                    if(player instanceof PlayerWarrior warrior){
+                        while (true) {
+                            System.out.println(String.format("Choose an enemy to Shield Bash(1 - %d): ", wave.totalEnemies()));
+                            if (sc.hasNextInt()) {
+                                userChoice = sc.nextInt();
+                                sc.nextLine();
+                                if (userChoice < 1 || userChoice > wave.totalEnemies()) {
+                                    System.out.println(String.format("Enter a number between 1 and %d. ", wave.totalEnemies()));
+                                    continue;
+                                }
+                            }
+                            wave.powerstone(warrior, userChoice);
+                            break;
+                        }
+                    } else if (player instanceof PlayerWizard wizard){
+                        wave.powerstone(wizard);
+                    }
+                }
+                inv.removeFromInventory(userChoice - 1);
                 break;
         }
-
-        // reset action count
-        actions = BASE_ACTIONS;
-
+        currentTurn++;
         if (wave.enemiesRemaining() == 0) {
             return true;
         }
         return false;
-
     }
 
     private boolean enemyTurn(MainPlayer player, Wave wave) {
+        System.out.println("====== ENEMY TURN ======");
         wave.enemyDealBasicAttackDamage(player);
         wave.enemyUpkeep();
         if (player.getHealth() == 0) {
