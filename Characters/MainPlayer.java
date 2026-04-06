@@ -14,6 +14,14 @@ public abstract class MainPlayer extends MainEntity implements PlayerBuff{
     public abstract void healHealth(int heal);
 
     public abstract void displayUniqueSkill();
+    
+    private int smokeTurnRemaining = 0;
+    public boolean smokeStatus(){return smokeTurnRemaining>0;}
+    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
+    public void setSmoke(int duration){smokeTurnRemaining = duration;}
+
+    @Override
+    public void tickAll(){smokeTick();}
 
     public int takeDamage(int damage){
         //damage taken is strictly basic attack damage only

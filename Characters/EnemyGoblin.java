@@ -1,5 +1,8 @@
 package Characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnemyGoblin extends MainEnemy{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
@@ -43,10 +46,15 @@ public class EnemyGoblin extends MainEnemy{
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
     }
-    
+     //get all statuses for enemy and then print them.
+    protected String getStatusText() {
+        List<String> statuses = new ArrayList<>();
+        if (stunStatus()) statuses.add("STUNNED");
+        return statuses.isEmpty() ? "" : " [" + String.join(", ", statuses) + "]";
+    }
     @Override
     public void showStats(){
-        System.out.println(NAME);
+        System.out.println(NAME + getStatusText());
         System.out.print("HP: "+this.health+"\t");
         System.out.print("ATK: "+this.attack+"\t");
         System.out.print("DEF: "+this.defense+"\t");
