@@ -53,7 +53,7 @@ public class PlayerWizard extends MainPlayer{
             resetKillCount();
             return totaldamage;
         } else if (this.skillcooldown > 0){
-            System.out.println("Skill on cooldown");
+            System.out.println("Skill is on cooldown!");
             return 0;
         } else {
             activateSkill();
