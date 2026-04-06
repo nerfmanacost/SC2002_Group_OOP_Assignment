@@ -10,7 +10,7 @@ public class BattleUI {
   //displays user health and important stats  
   public void displayPlayerBattleStats(MainPlayer player){
     List<String> statuses = new ArrayList<>();
-    if (player.smokeStatus()) statuses.add("Inside Smoke Bomb");
+    if (player.smokeStatus()) statuses.add("INSIDE SMOKE BOMB");
     String statusText = statuses.isEmpty() ? "" : " [" + String.join(", ", statuses) + "]";
     //gui health bar
     int barLength = 20;
