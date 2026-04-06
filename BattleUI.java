@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import Characters.MainPlayer;
 import Characters.PlayerWizard;
 
@@ -6,13 +9,14 @@ public class BattleUI {
 
   //displays user health and important stats  
   public void displayPlayerBattleStats(MainPlayer player){
-    //HAVE to display the users current item EVERY TURN, cuz user cannot backtrack option.
-
+    List<String> statuses = new ArrayList<>();
+    if (player.smokeStatus()) statuses.add("INSIDE SMOKE BOMB");
+    String statusText = statuses.isEmpty() ? "" : " [" + String.join(", ", statuses) + "]";
     //gui health bar
     int barLength = 20;
     int filled = (int)((double) player.getHealth() / player.getBaseHealth() * barLength);
     String bar = "[" + "=".repeat(filled) + "-".repeat(barLength - filled) + "]";
-    System.out.println(player.getName());
+    System.out.println(player.getName() + statusText);
     System.out.println("HP: " + bar + " " + player.getHealth() + "/" + player.getBaseHealth());
 
     System.out.println("DEF: " + player.effectiveDefense());

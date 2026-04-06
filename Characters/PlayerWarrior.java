@@ -9,7 +9,7 @@ public class PlayerWarrior extends MainPlayer{
     private static final int BASE_SPEED = 30;
     private int defendTurnRemaining = 0;
     private int skillcooldown = 0;
-    private int smokeTurnRemaining = 0;
+    
 
 
     public PlayerWarrior(String name){
@@ -31,9 +31,7 @@ public class PlayerWarrior extends MainPlayer{
     public int getBaseHealth(){return BASE_HEALTH;}
     public String getName(){return name;}
 
-    public boolean smokeStatus(){return smokeTurnRemaining>0;}
-    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
-    public void setSmoke(int duration){smokeTurnRemaining = duration;}
+    
     
 
     public int specialskill(MainEnemy enemy, boolean usedPowerStone){
@@ -57,7 +55,7 @@ public class PlayerWarrior extends MainPlayer{
     public void healHealth(int heal){this.health = Math.min(this.health + heal, BASE_HEALTH);}
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();smokeTick();}
+    public void tickAll(){defendTick(); tickCooldown();}
 
     @Override
     public void showStats(){
