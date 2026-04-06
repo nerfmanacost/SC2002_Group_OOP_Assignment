@@ -11,7 +11,7 @@ public class BattleUI {
     //gui health bar
     int barLength = 20;
     int filled = (int)((double) player.getHealth() / player.getBaseHealth() * barLength);
-    String bar = "[" + "█".repeat(filled) + "-".repeat(barLength - filled) + "]";
+    String bar = "[" + "=".repeat(filled) + "-".repeat(barLength - filled) + "]";
     System.out.println(player.getName());
     System.out.println("HP: " + bar + " " + player.getHealth() + "/" + player.getBaseHealth());
 
@@ -20,11 +20,11 @@ public class BattleUI {
     System.out.println("SPD: " + player.getSpeed());
 
   }
-
+  //needed for user to see potion health increment.
   public void displayPlayerHealth(MainPlayer player){
     int barLength = 20;
     int filled = (int)((double) player.getHealth() / player.getBaseHealth() * barLength);
-    String bar = "[" + "█".repeat(filled) + "-".repeat(barLength - filled) + "]";
+    String bar = "[" + "=".repeat(filled) + "-".repeat(barLength - filled) + "]";
     System.out.println("HP: " + bar + " " + player.getHealth() + "/" + player.getBaseHealth());
   }
 
