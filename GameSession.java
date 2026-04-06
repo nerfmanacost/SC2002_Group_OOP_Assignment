@@ -114,8 +114,8 @@ public class GameSession {
             battleUI.displayUserActions(player);
             if (sc.hasNextInt()) {
                 userChoice = sc.nextInt();
-                sc.nextLine();
             }
+            sc.nextLine();
             if (userChoice >= 1 && userChoice <= 4) {
                 int cooldown = 0;
                 if(userChoice == 3){
