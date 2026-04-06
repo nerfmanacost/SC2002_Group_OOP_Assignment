@@ -21,14 +21,14 @@ public class GameApp {
     Scanner scanner = new Scanner(System.in);
 
     //print game title
+    System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
     try (BufferedReader reader = new BufferedReader(new FileReader("gametitle.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
         } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("Error reading title file.");
+          //use to have error msg here but removed.
         }
 
     System.out.println("Welcome to Generic Text-Based Game 1111!");
