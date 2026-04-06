@@ -105,9 +105,9 @@ public class GameSession {
         if(changeWave){
             battleUI.printNextWaveHeader();
         }
-        System.out.println("====== ENEMIES ======");
-        wave.printWaveInfo();
         while (true) {
+            System.out.println("====== ENEMIES ======");
+            wave.printWaveInfo();
             battleUI.displayCurrentTurnNumber(currentTurn);
             //print user info per turn
             battleUI.displayPlayerBattleStats(player);
@@ -125,7 +125,7 @@ public class GameSession {
                         cooldown = wizard.getskillcooldown();
                     }
                     if(cooldown != 0){
-                        System.out.println("Skill on cooldown.");
+                        System.out.println("Skill is on cooldown!");
                         continue;
                     }
                 }

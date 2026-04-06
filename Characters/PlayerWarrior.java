@@ -41,7 +41,7 @@ public class PlayerWarrior extends MainPlayer{
             System.out.println("Power Stone used, free use of skill!");
             return basicAttack(enemy);
         } else if (skillcooldown > 0){
-            System.out.println("Skill on cooldown.");
+            System.out.println("Skill is on cooldown!");
             return 0;
         }else{
             activateSkill();

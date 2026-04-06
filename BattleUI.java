@@ -30,7 +30,7 @@ public class BattleUI {
 
   //Displays current turn number
   public void displayCurrentTurnNumber(int currentTurnNumber){
-    System.out.println("====== Turn " + currentTurnNumber + "======"); 
+    System.out.println("====== Turn " + currentTurnNumber + " ======"); 
   }
 
   public void printNextWaveHeader(){
