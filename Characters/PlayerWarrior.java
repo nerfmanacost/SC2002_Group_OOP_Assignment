@@ -50,7 +50,7 @@ public class PlayerWarrior extends MainPlayer{
     public void healHealth(int heal){this.health = Math.min(this.health + heal, BASE_HEALTH);}
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown(); smokeTick();}
 
     @Override
     public void showStats(){
