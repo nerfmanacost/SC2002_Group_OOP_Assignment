@@ -21,14 +21,14 @@ public class GameApp {
     Scanner scanner = new Scanner(System.in);
 
     //print game title
+    System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
     try (BufferedReader reader = new BufferedReader(new FileReader("gametitle.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
         } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("Error reading title file.");
+          //use to have error msg here but removed.
         }
 
     System.out.println("Welcome to Generic Text-Based Game 1111!");
@@ -56,10 +56,10 @@ public class GameApp {
     MainPlayer player = null;
 
     while(true){
-      System.out.println("Select your class...");
-      System.out.println("Warrior: 'Big Sword go Swoosh' has powerful attacks, higher health but lacks AOE | Press 1 and Enter.");
+      System.out.println("====== CLASS SELECTION ======");
+      System.out.println("1. Warrior: 'Big Sword go Swoosh' has powerful attacks, higher health but lacks AOE.");
 
-      System.out.println("Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has AOE and cool spells | Press 2 and Enter.");
+      System.out.println("2. Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has AOE and cool spells.");
      
       if (scanner.hasNextInt()){
         int userInput = scanner.nextInt();
@@ -136,8 +136,6 @@ public class GameApp {
       }
     }
 
-    //Need to code out inventory in warrior and wizard, and pass the items into inventory.
-
     //user now selects Difficulty, Easy Medium or Hard, enemy needs to show their attributes too.
     
     // --- setup difficulties ---
@@ -188,7 +186,7 @@ public class GameApp {
       }
     }
     //with these userSelected fields, we will construct a new GameSession.
-    GameSession game =  new GameSession(selectedDifficulty, player);
+    GameSession game =  new GameSession(selectedDifficulty, player, playerInv);
     game.startGame();
   }
 }

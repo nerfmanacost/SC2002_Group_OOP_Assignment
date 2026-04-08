@@ -1,5 +1,8 @@
 package Characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnemyGoblin extends MainEnemy{
     private static final int BASE_HEALTH = 55;
     private static final int BASE_ATTACK = 35;
@@ -18,11 +21,11 @@ public class EnemyGoblin extends MainEnemy{
     private void stunTick(){if (stunTurn>0) stunTurn--;}
 
     public int basicAttack(MainEntity defender){
-        if (stunStatus()){
-            System.out.println(NAME + " is stunned, unable to take action.");
+        if (getHealth() <= 0){
+            System.out.println(NAME + " is dead, unable to take action.");
             return 0;
-        }else if (getHealth() <= 0){
-            System.out.println(NAME + " is already dead, unable to take action.");
+        } else if (stunStatus()){
+            System.out.println(NAME + " is stunned, unable to take action.");
             return 0;
         }
         return Math.max(0, effectiveAttack() - defender.effectiveDefense());
@@ -43,10 +46,15 @@ public class EnemyGoblin extends MainEnemy{
         this.defense = BASE_DEFENSE;
         this.speed = BASE_SPEED;
     }
-    
+     //get all statuses for enemy and then print them.
+    protected String getStatusText() {
+        List<String> statuses = new ArrayList<>();
+        if (stunStatus()) statuses.add("STUNNED");
+        return statuses.isEmpty() ? "" : " [" + String.join(", ", statuses) + "]";
+    }
     @Override
     public void showStats(){
-        System.out.println(NAME);
+        System.out.println(NAME + getStatusText());
         System.out.print("HP: "+this.health+"\t");
         System.out.print("ATK: "+this.attack+"\t");
         System.out.print("DEF: "+this.defense+"\t");

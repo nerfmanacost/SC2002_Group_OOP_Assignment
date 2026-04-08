@@ -23,7 +23,7 @@ public class PlayerWizard extends MainPlayer{
         return damage;
     }
     
-    public void healHealth(int heal){this.health = heal;}
+    public void healHealth(int heal){this.health = Math.min(this.health + heal, BASE_HEALTH);}
 
 
     //defense skill activation and tick cooldown
@@ -34,16 +34,15 @@ public class PlayerWizard extends MainPlayer{
         activateDefend();
     }
 
-    //special skill wizard is going to attack aoe all enemies => check for all enemies if their health is 0 after they
-    //take damage == 0, wizard will get a buff, currently idk whether the buffs checking is correct, only can tell when doing in the main program
+    // special skill damages all enemies and raises wizard effectiveatk by 10 for every enemy killed 
     public int specialskill(MainEnemy[] enemies, boolean usedPowerStone){
         int totaldamage = 0;
-        if (this.skillcooldown > 0){
-            System.out.println("Skill on cooldown");
-            return 0;
-        } else if (usedPowerStone) {
+        if (usedPowerStone) {
             System.out.println("Power Stone used, free use of skill!");
             for (MainEnemy enemy : enemies){
+                if(enemy.getHealth() == 0){
+                    continue;
+                }
                 int damage = basicAttack(enemy);
                 totaldamage += enemy.takeDamage(damage);
                 if (enemy.getHealth() == 0){
@@ -53,12 +52,15 @@ public class PlayerWizard extends MainPlayer{
             skillbuff();
             resetKillCount();
             return totaldamage;
-        }else{
+        } else if (this.skillcooldown > 0){
+            System.out.println("Skill is on cooldown!");
+            return 0;
+        } else {
             activateSkill();
             for (MainEnemy enemy : enemies){
                 int damage = basicAttack(enemy);
                 totaldamage += enemy.takeDamage(damage);
-                if (enemy.getHealth() == 0){
+                if (enemy.getHealth() <= 0){
                     registerKill();
                 }
             }
@@ -68,13 +70,12 @@ public class PlayerWizard extends MainPlayer{
         }
     }
 
-    //all wizard attack buffs are only active for one round
-    public int skillbuff(){return attackBuff + 10 * killcount;}
+    public void skillbuff(){attackBuff += 10 * killcount;}
     public int effectiveAttack(){return this.attack + attackBuff;}
     private void resetAttackBuff(){attackBuff = 0;}
     public String getName(){return name;}
     
-    //call reset after each use of skill, want to check eveyrtime whether wizard kills or not
+    //call reset after each use of skill, want to check everytime whether wizard kills or not
     private void resetKillCount(){killcount = 0;}
     private void registerKill(){killcount++;}
 
@@ -88,14 +89,12 @@ public class PlayerWizard extends MainPlayer{
     public int getBaseHealth(){return BASE_HEALTH;}
 
     public boolean smokeStatus(){return smokeTurnRemaining>0;}
-    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
     public void setSmoke(int duration){smokeTurnRemaining = duration;}
 
-
     @Override
-    public void tickAll(){defendTick(); tickCooldown(); smokeTick();}
+    public void tickAll(){defendTick(); tickCooldown();}
 
-    //wizard buff only resets at the end of the level (technically can be considered perm buff for the wave)
+    //wizard buff only resets at the end of the level
     public void onLevelEnd(){resetAttackBuff();tickAll();}
 
     @Override
