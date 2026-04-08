@@ -96,7 +96,7 @@ public class GameSession {
 
     private boolean playerTurn(MainPlayer player, Wave wave, boolean changeWave) {
 
-        int userChoice = 0;
+        int userChoice = 0, target = 0;;
         boolean result;
         Scanner sc = new Scanner(System.in);
 
@@ -215,14 +215,18 @@ public class GameSession {
                         while (true) {
                             System.out.println(String.format("Choose an enemy to Shield Bash(1 - %d): ", wave.totalEnemies()));
                             if (sc.hasNextInt()) {
-                                userChoice = sc.nextInt();
+                                target = sc.nextInt();
                                 sc.nextLine();
-                                if (userChoice < 1 || userChoice > wave.totalEnemies()) {
+                                if (target < 1 || target > wave.totalEnemies()) {
                                     System.out.println(String.format("Enter a number between 1 and %d. ", wave.totalEnemies()));
                                     continue;
                                 }
+                            } else {
+                                System.out.println("Please only enter numbers.");
+                                sc.nextLine();
+                                continue;
                             }
-                            wave.powerstone(warrior, userChoice);
+                            wave.powerstone(warrior, target);
                             break;
                         }
                     } else if (player instanceof PlayerWizard wizard){
@@ -230,6 +234,7 @@ public class GameSession {
                     }
                 }
                 inv.removeFromInventory(userChoice - 1);
+                inv.printInventory();
                 break;
         }
         if (wave.enemiesRemaining() == 0) {
