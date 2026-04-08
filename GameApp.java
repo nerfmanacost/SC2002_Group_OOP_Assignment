@@ -59,7 +59,7 @@ public class GameApp {
       System.out.println("====== CLASS SELECTION ======");
       System.out.println("1. Warrior: 'Big Sword go Swoosh' has powerful attacks, higher health but lacks AOE.");
 
-      System.out.println("2. Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has AOE and cool spells.");
+      System.out.println("2. Wizard: 'Explosionnnnn!!!' has slower Speed, lesser Health but has an effective AOE spell.");
      
       if (scanner.hasNextInt()){
         int userInput = scanner.nextInt();
