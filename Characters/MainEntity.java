@@ -1,10 +1,12 @@
-public abstract class MainEntity {
+package Characters;
+
+public abstract class MainEntity implements EntityAction, TickCooldown{
     public enum TypeofEntity{PLAY_ENTI, PLAY_WAR, PLAY_WIZ, ENE_WOLF, ENE_GOB};
     protected int health, defense, attack, speed;
     protected String name;
     protected TypeofEntity entitytype;
 
-    public MainEntity(String name, int health, int defense, int attack, int speed){
+    public MainEntity(String name, int health, int attack, int defense, int speed){
         this.attack = attack;
         this.defense = defense;
         this.health = health;
@@ -12,13 +14,23 @@ public abstract class MainEntity {
         this.name = name;
         this.entitytype =  TypeofEntity.PLAY_ENTI;
     }
+
+    public MainEntity(int health, int attack, int defense, int speed){
+        this.attack = attack;
+        this.defense = defense;
+        this.health = health;
+        this.speed = speed;
+        this.entitytype = TypeofEntity.PLAY_ENTI;
+    }
     
+    public int getHealth(){return health;}
     public int getAttack(){return attack;}
     public int getDefense(){return defense;}
     public int getSpeed(){return speed;}
 
-    public abstract int basicattack(MainEntity defender);
-
-
-    
+    public abstract void showStats();
+    public abstract String getName();
+    public abstract int basicAttack(MainEntity defender);
+    public abstract int effectiveDefense();
+    public abstract int getBaseHealth();
 }

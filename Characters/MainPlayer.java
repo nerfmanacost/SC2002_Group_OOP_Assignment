@@ -1,13 +1,34 @@
-public abstract class MainPlayer extends MainEntity {
-    public MainPlayer(String name, int health, int defense, int attack, int speed){
-        super(name, health, defense, attack, speed);
-    }
-    
-    public void setName(String name){this.name = name;}
+package Characters;
 
+public abstract class MainPlayer extends MainEntity implements PlayerBuff{
+    public MainPlayer(String name, int health, int attack, int defense, int speed){
+        super(name, health, attack, defense, speed);
+    }
+
+    public void setName(String name){this.name = name;}
     public String getName(){return this.name;}
 
-    public abstract int specialskill();
-    public abstract void showStats();
-    public abstract int defend();
-}   
+
+    public abstract void gameReset();
+    public abstract int getBaseHealth();
+    public abstract void healHealth(int heal);
+
+    public abstract void displayUniqueSkill();
+    
+    private int smokeTurnRemaining = 0;
+    public boolean smokeStatus(){return smokeTurnRemaining>0;}
+    protected void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
+    public void setSmoke(int duration){smokeTurnRemaining = duration;}
+
+    @Override
+    public void tickAll(){smokeTick();}
+
+    public int takeDamage(int damage){
+        //damage taken is strictly basic attack damage only
+        this.health = Math.max(0, this.health - damage);
+        if (this.health == 0){
+            System.out.println("You have been slain.");
+        }
+        return damage;
+    }
+}
