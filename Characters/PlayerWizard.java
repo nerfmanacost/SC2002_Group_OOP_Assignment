@@ -7,7 +7,6 @@ public class PlayerWizard extends MainPlayer{
     private static final int BASE_SPEED = 20;
 
     private int defendTurnRemaining = 0;
-    private int smokeTurnRemaining = 0;
     private int skillcooldown = 0;
     private int killcount = 0;
     private int attackBuff = 0;
