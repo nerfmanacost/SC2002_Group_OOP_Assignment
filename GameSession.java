@@ -132,6 +132,9 @@ public class GameSession {
                         System.out.println("Skill is on cooldown!");
                         continue;
                     }
+                } else if (userChoice == 4 && inv.getSize() == 0){
+                    inv.printInventory();
+                    continue;
                 }
                 break;
             } else {
@@ -192,8 +195,8 @@ public class GameSession {
                 while(true){
                     if(sc.hasNextInt()){
                         userChoice = sc.nextInt();
-                        sc.nextLine();
                     }
+                    sc.nextLine();
                     if(userChoice <= inv.getSize() && userChoice >= 1){
                         break;
                     } else {
