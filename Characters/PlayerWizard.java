@@ -7,7 +7,6 @@ public class PlayerWizard extends MainPlayer{
     private static final int BASE_SPEED = 20;
 
     private int defendTurnRemaining = 0;
-    private int smokeTurnRemaining = 0;
     private int skillcooldown = 0;
     private int killcount = 0;
     private int attackBuff = 0;
@@ -88,11 +87,8 @@ public class PlayerWizard extends MainPlayer{
     public int effectiveDefense(){return defendTurnRemaining>0 ? this.defense + 10 : this.defense;}
     public int getBaseHealth(){return BASE_HEALTH;}
 
-    public boolean smokeStatus(){return smokeTurnRemaining>0;}
-    public void setSmoke(int duration){smokeTurnRemaining = duration;}
-
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown();smokeTick();}
 
     //wizard buff only resets at the end of the level
     public void onLevelEnd(){resetAttackBuff();tickAll();}

@@ -17,7 +17,7 @@ public abstract class MainPlayer extends MainEntity implements PlayerBuff{
     
     private int smokeTurnRemaining = 0;
     public boolean smokeStatus(){return smokeTurnRemaining>0;}
-    private void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
+    protected void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
     public void setSmoke(int duration){smokeTurnRemaining = duration;}
 
     @Override
