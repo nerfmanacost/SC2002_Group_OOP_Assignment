@@ -10,8 +10,6 @@ public class PlayerWarrior extends MainPlayer{
     private int defendTurnRemaining = 0;
     private int skillcooldown = 0;
     
-
-
     public PlayerWarrior(String name){
         super(name, BASE_HEALTH, BASE_ATTACK, BASE_DEFENSE, BASE_SPEED);
         this.entitytype = TypeofEntity.PLAY_WAR;
@@ -30,9 +28,6 @@ public class PlayerWarrior extends MainPlayer{
 
     public int getBaseHealth(){return BASE_HEALTH;}
     public String getName(){return name;}
-
-    
-    
 
     public int specialskill(MainEnemy enemy, boolean usedPowerStone){
         if (usedPowerStone) {
