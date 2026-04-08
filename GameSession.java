@@ -225,7 +225,6 @@ public class GameSession {
                 inv.removeFromInventory(userChoice - 1);
                 break;
         }
-        currentTurn++;
         if (wave.enemiesRemaining() == 0) {
             return true;
         }
