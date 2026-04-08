@@ -88,7 +88,7 @@ public class PlayerWizard extends MainPlayer{
     public int getBaseHealth(){return BASE_HEALTH;}
 
     @Override
-    public void tickAll(){defendTick(); tickCooldown();}
+    public void tickAll(){defendTick(); tickCooldown();smokeTick();}
 
     //wizard buff only resets at the end of the level
     public void onLevelEnd(){resetAttackBuff();tickAll();}

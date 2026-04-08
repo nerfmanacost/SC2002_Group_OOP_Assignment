@@ -20,6 +20,9 @@ public abstract class MainPlayer extends MainEntity implements PlayerBuff{
     protected void smokeTick(){if (smokeTurnRemaining>0) smokeTurnRemaining--;}
     public void setSmoke(int duration){smokeTurnRemaining = duration;}
 
+    @Override
+    public void tickAll(){smokeTick();}
+
     public int takeDamage(int damage){
         //damage taken is strictly basic attack damage only
         this.health = Math.max(0, this.health - damage);
