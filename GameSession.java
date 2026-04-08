@@ -71,6 +71,10 @@ public class GameSession {
                 isGameOver = enemyTurn(player, wave);
             } else {
                 isGameOver = enemyTurn(player, wave);
+                if (isGameOver) {
+                    gameWon = false;
+                    continue;
+                }
                 changeWave = playerTurn(player, wave, changeWave);
             }
 
